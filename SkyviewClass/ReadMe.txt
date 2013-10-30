@@ -1,1 +1,1 @@
-This is the entire project folder for the skyview functionality. 
+This is the entire project folder for the skyview functionality. There are functions still in the project that use the accelerometer data, but those will be reomved since implementing free-view isn't going to happen.
