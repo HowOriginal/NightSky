@@ -1,7 +1,7 @@
 
-
 import java.util.ArrayList;
 
+//Probably don't need to implement Drawable as this might be the only drawable class.
 public class Constellation implements Drawable {
 	private String id;
 	private ArrayList<IntPair> stars = new ArrayList<IntPair>();
