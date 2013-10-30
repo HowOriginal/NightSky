@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,6 +9,12 @@ public class User {
 	private ArrayList<String> privateLibrary = new ArrayList<String>();
 	private ArrayList<String> publicLibrary = new ArrayList<String>();
 	private HashMap<String, Integer> votedStories = new HashMap<String, Integer>();
+	
+	//Constructor
+	public User(String aid, String apassword) {
+		this.id = aid;
+		this.password = apassword;
+	}
 	
 	//Get functions
 	public String getId() { return this.id; }
