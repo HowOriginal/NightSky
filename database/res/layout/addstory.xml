@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="66dp"
+        android:layout_marginTop="23dp"
+        android:gravity="center"
+        android:text="Test1 Add Story"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView2"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="54dp"
+        android:text="Username" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="58dp"
+        android:text="Add Shit" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editText1"
+        android:layout_alignRight="@+id/textView1"
+        android:text="Your Story Here"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>
