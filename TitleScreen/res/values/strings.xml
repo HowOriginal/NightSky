@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Night Sky</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="sky_view">Sky View</string>
+    <string name="library">Library</string>
+    <string name="new_story">New Story</string>
+    <string name="edit_story">Edit Story</string>
+    <string name="save_story">Save Story</string>
+    <string name="saved_stories">Saved Stories</string>
+    <string name="my_stories">My Stories</string>
+    <string name="view_in_sky">View in SkyView</string>
+    <string name="read_story">Read Story</string>
+
+</resources>
