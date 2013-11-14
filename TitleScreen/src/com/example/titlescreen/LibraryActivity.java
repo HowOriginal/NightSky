@@ -1,32 +1,60 @@
 package com.example.titlescreen;
 
 import android.os.Bundle;
-//import android.app.Activity;
+import android.app.Activity;
 import android.content.Intent;
 //import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 
-public class LibraryActivity extends MainActivity {
+public class LibraryActivity extends Activity {
 
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+        setContentView(R.layout.library_screen);
+    
+	
+	 final Button firstact = (Button) findViewById(R.id.button2);
+     firstact.setOnClickListener(new View.OnClickListener() {
+         public void onClick(View v) {
+             // Perform action on click   
 
-	public void firstact(View view) {
-		Intent intent1 = new Intent(this, FirstActivity.class);
-		startActivity(intent1);
-	}
-	
-	public void secondact(View view) {
-		Intent intent2 = new Intent(this, SecondActivity.class);
-		startActivity(intent2);
-	}
-	
-	public void editstory(View view) {
-		Intent intent2 = new Intent(this, EditStoryScreen.class);
-		startActivity(intent2);
-	}
+             Intent activityChangeIntent = new Intent(LibraryActivity.this, FirstActivity.class);
+
+             // currentContext.startActivity(activityChangeIntent);
+
+             LibraryActivity.this.startActivity(activityChangeIntent);
+         }
+     });
+     
+	 final Button secondact = (Button) findViewById(R.id.button1);
+     secondact.setOnClickListener(new View.OnClickListener() {
+         public void onClick(View v) {
+             // Perform action on click   
+
+             Intent activityChangeIntent = new Intent(LibraryActivity.this, SecondActivity.class);
+
+             // currentContext.startActivity(activityChangeIntent);
+
+             LibraryActivity.this.startActivity(activityChangeIntent);
+         }
+     });
+     
+	 final Button editstory = (Button) findViewById(R.id.button3);
+     editstory.setOnClickListener(new View.OnClickListener() {
+         public void onClick(View v) {
+             // Perform action on click   
+
+             Intent activityChangeIntent = new Intent(LibraryActivity.this, EditStoryScreen.class);
+
+             // currentContext.startActivity(activityChangeIntent);
+
+             LibraryActivity.this.startActivity(activityChangeIntent);
+         }
+     });
+ }
+
+
 }
