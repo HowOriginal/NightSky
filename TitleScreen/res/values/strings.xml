@@ -13,5 +13,6 @@
     <string name="my_stories">My Stories</string>
     <string name="view_in_sky">View in SkyView</string>
     <string name="read_story">Read Story</string>
+    <string name="story_title">Story Title</string>
 
 </resources>
