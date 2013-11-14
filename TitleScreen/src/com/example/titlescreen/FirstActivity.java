@@ -1,42 +1,51 @@
 package com.example.titlescreen;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
+//import android.support.v4.app.Fragment;
+//import android.support.v4.app.FragmentTabHost;
+//import android.view.LayoutInflater;
+//import android.view.View;
+//import android.view.ViewGroup;
+import android.app.Activity;
 //import android.widget.TextView;
+import android.content.Intent;
 
-public class FirstActivity extends Fragment {
+public class FirstActivity extends Activity {
 
-    private static View mView;
+    protected void onCreate(Bundle b) {
+        super.onCreate(b);
 
-    public static final FirstActivity newInstance(String sampleText) {
-        FirstActivity f = new FirstActivity();
+        setContentView(R.layout.first_layout);
+   
+   	 final Button editstory = (Button) findViewById(R.id.button1);
+     editstory.setOnClickListener(new View.OnClickListener() {
+         public void onClick(View v) {
+             // Perform action on click   
 
-        Bundle b = new Bundle();
-        b.putString("bString", sampleText);
-        f.setArguments(b);
+             Intent activityChangeIntent = new Intent(FirstActivity.this, EditStoryScreen.class);
 
-        
-    return f;
+             // currentContext.startActivity(activityChangeIntent);
+
+             FirstActivity.this.startActivity(activityChangeIntent);
+         }
+     });
+     
+	 final Button newstory = (Button) findViewById(R.id.button2);
+     newstory.setOnClickListener(new View.OnClickListener() {
+         public void onClick(View v) {
+             // Perform action on click   
+
+             Intent activityChangeIntent = new Intent(FirstActivity.this, NewStoryScreen.class);
+
+             // currentContext.startActivity(activityChangeIntent);
+
+             FirstActivity.this.startActivity(activityChangeIntent);
+         }
+     });
     }
     
+    
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        mView = inflater.inflate(R.layout.first_layout, container, false);
-        //String sampleText = getArguments().getString("bString");
-        
-        FragmentTabHost mTabHost;
-        
-        mTabHost = (FragmentTabHost)mView.findViewById(android.R.id.tabhost);
-        mTabHost.setup(getActivity(), getChildFragmentManager(), android.R.id.tabcontent);
-        
-        return mView;
-        
-
-    }
 }
