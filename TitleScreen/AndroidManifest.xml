@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="18" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.titlescreen.MainActivity"
+            android:name="com.example.titlescreen.LaunchScreen"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,10 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.titlescreen.LibraryActivity" />
-
+        <activity android:name="com.example.titlescreen.FirstActivity" />
+        <activity android:name="com.example.titlescreen.SecondActivity" />
+        <activity android:name="com.example.titlescreen.EditStoryScreen" />
+        <activity android:name="com.example.titlescreen.NewStoryScreen" />
     </application>
 
 </manifest>
