@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
+import com.threed.jpct.Interact2D;
 import com.threed.jpct.Light;
 import com.threed.jpct.Logger;
 import com.threed.jpct.Object3D;
@@ -207,6 +208,22 @@ public class Skyview extends Activity{
 			Id1 = me.getActionIndex();
 			xpos = me.getX(Id1);
 			ypos = me.getY(Id1);
+			
+			SimpleVector dir = Interact2D.reproject2D3DWS(cam, fb, (int)Math.round(xpos), (int)Math.round(ypos)-60).normalize();
+			Object[] res = world.calcMinDistanceAndObject3D(cam.getPosition(), dir, 1000 /*or whatever*/);
+			
+			TextView textView = (TextView) findViewById(12345);
+            
+            if(res[1] == null)
+            {
+            	textView.setText("null");
+            }
+            else
+            {
+            	textView.setText(((Object3D) res[1]).getName());
+            	//textView.setText((res[0]).toString() + "\n" + ((Object3D) res[1]).getName());
+            }
+			
 			return true;
 		}
 
@@ -310,20 +327,37 @@ public class Skyview extends Activity{
 			//Texture StarTexture = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getResources().getDrawable(R.drawable.ic_launcher)), 64, 64));
 			//TextureManager.getInstance().addTexture("stars", StarTexture);
 			
+			//Build the Constellation clickable
+			SimpleVector Point = new SimpleVector(0, 0, 450);
+			Object3D Const = Primitives.getSphere(30);
+			Const.calcTextureWrapSpherical();
+			Const.setCollisionMode(Object3D.COLLISION_CHECK_OTHERS);
+			Const.setTexture("SkyTexture");
+			Const.setCulling(false);
+			Const.setName(Con.getId());
+			Const.strip();
+			Const.build();
+			Sky.addObject(Const);
+			Point.rotateY(0.5f);
+			Const.setOrigin(Point);
+			Const.setTransparency(0);
+			Const.setLighting(Object3D.LIGHTING_NO_LIGHTS);
 			//Builds the stars 
 			for(int i = 0; i < StarList.size(); i++)
 			{
 				//Draw the star at the origin+location
 				float x = Origin.x + StarList.get(i).first;
 				float y = Origin.y + StarList.get(i).second;
-				SimpleVector Point = new SimpleVector(x, y, 450);
+				Point = new SimpleVector(x, y, 450);
 				//Apply rotation to origin+star position; for now none applicable
 				
 				//Build and place star
 				Object3D Star = Primitives.getSphere(10);
 				Star.calcTextureWrapSpherical();
+				//Star.setCollisionMode(Object3D.COLLISION_CHECK_OTHERS);
 				Star.setTexture("stars");
 				Star.setCulling(false);
+				Star.setName(Con.getId());
 				Star.strip();
 				Star.build();
 				Sky.addObject(Star);
@@ -353,6 +387,7 @@ public class Skyview extends Activity{
 			
 			//Testcase code
 			Constellation TestCase = new Constellation();
+			TestCase.setId("Test constellation");
 			TestCase.addStar(new IntPair(0,0));
 			TestCase.addStar(new IntPair(20,20));
 			TestCase.addStar(new IntPair(20,-20));
@@ -391,6 +426,7 @@ public class Skyview extends Activity{
 				sky.calcTextureWrapSpherical();
 				sky.setTexture("SkyTexture");
 				sky.setCulling(false);
+				sky.setCollisionMode(Object3D.COLLISION_CHECK_OTHERS);
 				sky.strip();
 				sky.build();
 				
