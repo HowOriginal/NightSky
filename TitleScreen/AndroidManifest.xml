@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:minSdkVersion="11"
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
@@ -27,6 +27,15 @@
         <activity android:name="com.example.titlescreen.SecondActivity" />
         <activity android:name="com.example.titlescreen.EditStoryScreen" />
         <activity android:name="com.example.titlescreen.NewStoryScreen" />
+        <activity android:name="com.example.titlescreen.SkyView" />
+        <activity android:name="com.example.titlescreen.GameSurfaceView" />
+        <activity android:name="com.example.titlescreen.AddStory" />
+        <activity android:name="com.example.titlescreen.Database" />
+        <activity android:name="com.example.titlescreen.JSONParser" />
+        <activity android:name="com.example.titlescreen.Login" />
+        <activity android:name="com.example.titlescreen.ReadStory" />
+        <activity android:name="com.example.titlescreen.Register" />
     </application>
+    
 
 </manifest>
