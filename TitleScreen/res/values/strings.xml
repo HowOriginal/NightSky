@@ -14,5 +14,10 @@
     <string name="view_in_sky">View in SkyView</string>
     <string name="read_story">Read Story</string>
     <string name="story_title">Story Title</string>
+    <string name="login">Log In</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="testlogin">Test Login</string>
 
 </resources>
