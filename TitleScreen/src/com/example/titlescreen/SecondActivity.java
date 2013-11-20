@@ -39,7 +39,7 @@ public class SecondActivity extends Activity {
 	 @Override
 	 protected void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
-	  setContentView(R.layout.second_activity);
+	  setContentView(R.layout.second_layout);
 	  listView = (ListView) findViewById(R.id.listView1);
 	  accessWebService();
 	  
