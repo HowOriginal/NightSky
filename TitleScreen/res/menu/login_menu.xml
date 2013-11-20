@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/username"
+          android:title="@string/username" />
+    
+      <group android:id="@+id/group_login">
+        <item android:id="@+id/login"
+              android:title="@string/login"
+              android:showAsAction="ifRoom" />
+        <item android:id="@+id/register"
+              android:title="@string/register"
+              android:showAsAction="ifRoom" />
+       </group>
+
+</menu>
