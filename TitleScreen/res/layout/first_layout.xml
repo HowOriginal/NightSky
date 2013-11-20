@@ -2,10 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="horizontal" android:baselineAligned="false">
+
+    
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
     <Button
         android:id="@+id/button2"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
@@ -14,10 +22,20 @@
 
     <Button
         android:id="@+id/button1"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
         android:layout_weight="1"
         android:text="@string/edit_story" />
+    
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+    </ListView>
+    
 
 </LinearLayout>
