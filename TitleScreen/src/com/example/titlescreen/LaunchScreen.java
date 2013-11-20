@@ -3,7 +3,9 @@ package com.example.titlescreen;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-//import android.view.Menu;
+//import android.view.MenuInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -15,7 +17,7 @@ public class LaunchScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_screen);
-    //}
+    
 	
 		 final Button library = (Button) findViewById(R.id.button2);
 	     library.setOnClickListener(new View.OnClickListener() {
@@ -24,6 +26,7 @@ public class LaunchScreen extends Activity {
 	
 	             Intent activityChangeIntent = new Intent(LaunchScreen.this, LibraryActivity.class);
 	
+	             // currentContext.startActivity(activityChangeIntent);
 	
 	             LaunchScreen.this.startActivity(activityChangeIntent);
 	         }
@@ -43,5 +46,23 @@ public class LaunchScreen extends Activity {
 	     });
 
   }  
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    //MenuInflater inflater = getMenuInflater();
+	    //inflater.inflate(R.menu.login_menu, menu);
+		getMenuInflater().inflate(R.menu.login_menu, menu);
+	    return true;
+	}
+	//setGroupVisible() to control login & register buttons
+	public boolean onOptionsItemSelected(MenuItem item) {
+		  switch (item.getItemId()) {
+		      case R.id.login:  startActivity(new Intent(this, Login.class));;
+		                            break;
+		      case R.id.register:  startActivity(new Intent(this, Register.class));;
+              						break;   
+		  }
+		 return true;
+	}
 
 }
