@@ -16,10 +16,12 @@
         android:layout_width="289dp"
         android:layout_height="0dip"
         android:layout_weight="0.90"
-        android:hint="@string/edit_story" />
+        android:hint="@string/edit_story"
+        android:inputType="textMultiLine|textAutoCorrect" />
     
     <Button
         android:id="@+id/save_story"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="284dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
