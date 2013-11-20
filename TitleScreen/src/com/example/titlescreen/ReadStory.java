@@ -34,15 +34,15 @@ public class ReadStory extends Activity {
  @Override
  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
-  setContentView(R.layout.database);
-  listView = (ListView) findViewById(R.id.textView1);
+  setContentView(R.layout.readstory);
+  listView = (ListView) findViewById(R.id.listView1);
   accessWebService();
  }
  
  @Override
  public boolean onCreateOptionsMenu(Menu menu) {
   // Inflate the menu; this adds items to the action bar if it is present.
-  getMenuInflater().inflate(R.menu.login_menu, menu);
+  getMenuInflater().inflate(R.menu.main, menu);
   return true;
  }
  
@@ -87,7 +87,7 @@ public class ReadStory extends Activity {
  
   @Override
   protected void onPostExecute(String result) {
-   ListDrwaer();
+   ListDrawer();
   }
  }// end async task
  
@@ -98,28 +98,29 @@ public class ReadStory extends Activity {
  }
  
  // build hash set for list view
- public void ListDrwaer() {
-  List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+ public void ListDrawer() {
+  List<Map<String, String>> employeeList = new ArrayList<Map<String, String>>();
  
   try {
    JSONObject jsonResponse = new JSONObject(jsonResult);
-   JSONArray jsonMainNode = jsonResponse.optJSONArray("stories");
+   JSONArray jsonMainNode = jsonResponse.optJSONArray("users and stories");
  
    for (int i = 0; i < jsonMainNode.length(); i++) {
     JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-    String name = jsonChildNode.optString("user");
-    String number = jsonChildNode.optString("story");
-    String outPut = name + "-" + number;
-    list.add(createEmployee("users to stories", outPut));
+    String name = jsonChildNode.optString("username");
+    String title = jsonChildNode.optString("title");
+    String story = jsonChildNode.optString("story");
+    String outPut = name + "// Title: " + title + "\n" + story;
+    employeeList.add(createEmployee("employees", outPut));
    }
   } catch (JSONException e) {
    Toast.makeText(getApplicationContext(), "Error" + e.toString(),
      Toast.LENGTH_SHORT).show();
   }
  
-  SimpleAdapter simpleAdapter = new SimpleAdapter(this, list,
+  SimpleAdapter simpleAdapter = new SimpleAdapter(this, employeeList,
     android.R.layout.simple_list_item_1,
-    new String[] { "stories" }, new int[] { android.R.id.text1 });
+    new String[] { "employees" }, new int[] { android.R.id.text1 });
   listView.setAdapter(simpleAdapter);
  }
  

@@ -9,8 +9,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.titlescreen.R;
-//import com.example.titlescreen.R.id;
-//import com.example.titlescreen.R.layout;
+import com.example.titlescreen.R.id;
+import com.example.titlescreen.R.layout;
 
 
 import android.app.Activity;
@@ -65,8 +65,16 @@ public class Login extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.login:
-				new AttemptLogin().execute();
-				Intent j = new Intent(this, AddStory.class);
+			    AttemptLogin temp = new AttemptLogin();
+			    temp.execute();
+			    if(temp.failure)
+			    {
+					Intent j = new Intent(this, AddStory.class);
+					String a = user.getText().toString();
+					j.putExtra("un", a);
+					pass.setText("");
+					startActivity(j);
+			    }
 			break;
 		case R.id.register:
 				Intent i = new Intent(this, Register.class);
@@ -80,7 +88,7 @@ public class Login extends Activity implements OnClickListener{
 	
 	class AttemptLogin extends AsyncTask<String, String, String> {
 
-		boolean failure = false;
+		boolean failure = true;
 		
         @Override
         protected void onPreExecute() {
@@ -94,7 +102,6 @@ public class Login extends Activity implements OnClickListener{
 		
 		@Override
 		protected String doInBackground(String... args) {
-			// TODO Auto-generated method stub
 			 // Check for success tag
             int success;
             String username = user.getText().toString();
@@ -110,14 +117,16 @@ public class Login extends Activity implements OnClickListener{
                 JSONObject json = jsonParser.makeHttpRequest(
                        LOGIN_URL, "POST", params);
  
-                // check your log for JSON response
+                // check your log for json response
                 Log.d("Login attempt", json.toString());
  
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
+                	failure = false;
                 	Log.d("Login Successful!", json.toString());
                 	return json.getString(TAG_MESSAGE);
                 }else{
+                	failure = true;
                 	Log.d("Login Failure!", json.getString(TAG_MESSAGE));
                 	return json.getString(TAG_MESSAGE);
                 	
