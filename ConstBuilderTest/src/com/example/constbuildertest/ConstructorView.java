@@ -1,34 +1,46 @@
 package com.example.constbuildertest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 
 public class ConstructorView extends View {
     Paint paint = new Paint();
     private Constellation con = new Constellation();
-    private int startX,startY,stopX,stopY;
+    private int startX,startY,stopX,stopY,screenwidth,screenheight;
 
-    public ConstructorView(Context context) {
+    @SuppressLint("NewApi")
+	public ConstructorView(Context context) {
         super(context);
         paint.setColor(Color.BLACK);
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        screenwidth = size.x;
+        screenheight = size.y;
     }
 
     //Drawing constellation is implemented here
     @Override
     public void onDraw(Canvas canvas) {
-    	IntPair ip, ip2, ip3;
+    	IntPair ip;
+    	FloatPair fp, fp2;
     	for (int i=0; i<con.numStars(); ++i) {
-    		ip = con.getStar(i);
-    		canvas.drawCircle(ip.first, ip.second, 10, paint);
+    		fp = con.getStar(i);
+    		canvas.drawCircle(fp.first*screenwidth, fp.second*screenheight, 10, paint);
     	}
     	for (int i=0; i<con.numLines(); ++i) {
     		ip = con.getLine(i);
-    		ip2 = con.getStar(ip.first);
-    		ip3 = con.getStar(ip.second);
-    		canvas.drawLine(ip2.first, ip2.second, ip3.first, ip3.second, paint);
+    		fp = con.getStar(ip.first);
+    		fp2 = con.getStar(ip.second);
+    		canvas.drawLine(fp.first*screenwidth, fp.second*screenheight, fp2.first*screenwidth, fp2.second*screenheight, paint);
     	}
     	canvas.drawLine(startX, startY, stopX, stopY, paint);
     }
@@ -55,25 +67,25 @@ public class ConstructorView extends View {
     		//Create or delete a star if the user does not drag a outside a star
     		if (dis < 20) {
     			//If no star exists at this location, add a new one
-    			if (startstar.first==-1 || startstar.second>40) {
-    				con.addStar(new IntPair(startX,startY));
+    			if (startstar.first==-1 || startstar.second>20) {
+    				con.addStar(new FloatPair((float)startX/screenwidth,(float)startY/screenheight));
     			}
     			//If there is a star, delete it
-    			else if (startstar.second<=40) {
+    			else if (startstar.second<=20) {
     				con.deleteStar(startstar.first);
     			}
     		}
     		
     		//If the user drags a line from a star, either move it or create a connection
     		else {
-    			if (startstar.first!=-1 && startstar.second<=40) {
+    			if (startstar.first!=-1 && startstar.second<=20) {
     				//If a star exists near where the user lifted, draw a connection
-    				if (stopstar.first!=-1 && stopstar.second<=40) {
+    				if (stopstar.first!=-1 && stopstar.second<=20) {
     					con.addLine(new IntPair(startstar.first,stopstar.first));
     				}
     				//If no star exists at the end point, move the star there
     				else {
-    					con.setStar(startstar.first, new IntPair(stopX,stopY));
+    					con.setStar(startstar.first, new FloatPair((float)stopX/screenwidth,(float)stopY/screenheight));
     				}
     			}
     		}
@@ -89,7 +101,8 @@ public class ConstructorView extends View {
     	return true;
     }
     
-    private int calculateDistance(int x1, int y1, int x2, int y2) {
+    //Return the distance between two points
+    private int calculateDistance(float x1, float y1, float x2, float y2) {
     	double result = (x1-x2)*(x1-x2)+(y1-y2)*(y1-y2);
     	result = Math.sqrt(result);
     	return (int) result;
@@ -99,11 +112,11 @@ public class ConstructorView extends View {
     //	first is the index of the closest star
     //	second is the distance to the star from x1,y1
     private IntPair findClosestStar(int x1, int y1) {
-    	IntPair ip;
+    	FloatPair fp;
     	int closest=-1,closestdis=-1,dis;
     	for (int i=0; i<con.numStars(); ++i) {
-    		ip = con.getStar(i);
-    		dis = calculateDistance(x1,y1,ip.first,ip.second);
+    		fp = con.getStar(i);
+    		dis = calculateDistance(x1,y1,fp.first*screenwidth,fp.second*screenheight);
     		if (dis < closestdis || closestdis==-1) {
     			closestdis=dis;
     			closest = i;
