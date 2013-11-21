@@ -251,7 +251,11 @@ public class SkyView extends Activity{
          LB.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-                 
+                 Intent activityChangeIntent = new Intent(Skyview.this, LibraryActivity.class);
+
+	             // currentContext.startActivity(activityChangeIntent);
+
+	             Skyview.this.startActivity(activityChangeIntent);
          }
          });
          rl.addView(LB);
