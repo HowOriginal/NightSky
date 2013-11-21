@@ -68,7 +68,9 @@ public class ConstructorView extends View {
     		if (dis < 20) {
     			//If no star exists at this location, add a new one
     			if (startstar.first==-1 || startstar.second>20) {
-    				con.addStar(new FloatPair((float)startX/screenwidth,(float)startY/screenheight));
+    				if (con.numStars()<10) {
+    					con.addStar(new FloatPair((float)startX/screenwidth,(float)startY/screenheight));
+    				}
     			}
     			//If there is a star, delete it
     			else if (startstar.second<=20) {
