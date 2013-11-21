@@ -12,16 +12,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.titlescreen.R;
-import com.example.titlescreen.R.id;
-import com.example.titlescreen.R.layout;
 
-
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -50,6 +49,9 @@ public class Login extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		
+        ActionBar actionBar = getActionBar(); 
+        actionBar.setDisplayHomeAsUpEnabled(true);
+		
 		//setup input fields
 		user = (EditText)findViewById(R.id.username);
 		pass = (EditText)findViewById(R.id.password);
@@ -62,6 +64,16 @@ public class Login extends Activity implements OnClickListener{
 		mSubmit.setOnClickListener(this);
 		mRegister.setOnClickListener(this);
 	}
+	
+	 @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	        case android.R.id.home:
+	            this.finish();
+	            return true;
+	        }
+	        return super.onOptionsItemSelected(item);
+	    }
 
 	@Override
 	public void onClick(View v) {
@@ -84,9 +96,10 @@ public class Login extends Activity implements OnClickListener{
 			}
 			    if(!temp.failure)
 			    {
-					Intent j = new Intent(this, AddStory.class);
+					Intent j = new Intent(this, LaunchScreen.class);
 					String a = user.getText().toString();
-					j.putExtra("un", a);
+					j.putExtra("text", a);
+					//j.putExtra("un", a);
 					pass.setText("");
 					startActivity(j);
 			    }
