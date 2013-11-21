@@ -1,4 +1,4 @@
-package com.example.reviewiteration;
+package com.example.titlescreen;
 
 public class FloatPair {
 	public float first;
