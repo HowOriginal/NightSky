@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 
 @SuppressLint("InlinedApi")
-public class MainActivity extends Activity {
+public class ConstructorActivity extends Activity {
 
 	private ConstructorView cv;
 	
@@ -194,7 +194,7 @@ public class MainActivity extends Activity {
 		protected void onPostExecute(String file_url) {
 			pDialog.dismiss();
 			if (file_url != null) {
-				Toast.makeText(MainActivity.this, file_url, Toast.LENGTH_LONG)
+				Toast.makeText(ConstructorActivity.this, file_url, Toast.LENGTH_LONG)
 						.show();
 			}
 		}
