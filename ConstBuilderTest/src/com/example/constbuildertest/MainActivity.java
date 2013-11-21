@@ -51,6 +51,9 @@ public class MainActivity extends Activity {
 	    savebutton.setOnClickListener(new View.OnClickListener() {
 	        @Override
 	        public void onClick(View v) {
+	        	//Retrieve the Constellation from the Constructor.
+	        	Constellation con = cv.getConstellation();
+	        	
 	            //Implement
 	        }
 	    });
