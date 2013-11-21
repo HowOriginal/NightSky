@@ -1,4 +1,4 @@
-package com.example.titlescreen;
+package com.example.reviewiteration;
 
 import com.example.reviewiteration.IntPair;
 import com.example.reviewiteration.FloatPair;
@@ -37,10 +37,10 @@ public class ConstellationRead extends Activity {
  //THIS IS THE ARRAY WITH EVERYTHING
  ArrayList<Constellation> sky;
  
- @Override
+@Override
  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
-  setContentView(R.layout.constellationread);
+  //setContentView(R.layout.constellationread);
   listView = (ListView) findViewById(R.id.listView2);
   accessWebService();
  }
@@ -205,8 +205,6 @@ public class ConstellationRead extends Activity {
     int p7a = jsonChildNode.optInt("p7a");
     int p7b = jsonChildNode.optInt("p7b");
     
-    int a=0, b=0;
-    
     //use this constellation for information
     Constellation temp = new Constellation();
     
@@ -235,23 +233,13 @@ public class ConstellationRead extends Activity {
     temp.lines.clear();
     
     //dummy output to see how many stars in the sky
-    String outPut = "Points ";
-    starlist.add(createconst("points", outPut));
+    /*String outPut = "Points ";
+    starlist.add(createconst("points", outPut));*/
    }
   } catch (JSONException e) {
    Toast.makeText(getApplicationContext(), "Error" + e.toString(),
      Toast.LENGTH_SHORT).show();
   }
  
-  SimpleAdapter simpleAdapter = new SimpleAdapter(this, starlist,
-    android.R.layout.simple_list_item_1,
-    new String[] { "points" }, new int[] { android.R.id.text1 });
-  listView.setAdapter(simpleAdapter);
- }
- 
- private HashMap<String, String> createconst(String name, String number) {
-  HashMap<String, String> constellation = new HashMap<String, String>();
-  constellation.put(name, number);
-  return constellation;
  }
 }

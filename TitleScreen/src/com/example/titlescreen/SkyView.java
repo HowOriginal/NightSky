@@ -1,5 +1,6 @@
 package com.example.titlescreen;
 
+import java.com.example.ConstellationRead;
 import java.lang.reflect.Field;
 
 import javax.microedition.khronos.egl.EGL10;
