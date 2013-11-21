@@ -70,7 +70,7 @@ public class ConstructorView extends View {
     		if (dis < 20) {
     			//If no star exists at this location, add a new one
     			if (startstar.first==-1 || startstar.second>20) {
-    				if (con.numStars()<10) {
+    				if (con.numStars()<7) {
     					con.addStar(new FloatPair((float)startX/screenwidth,(float)startY/screenheight));
     				}
     			}
@@ -85,7 +85,9 @@ public class ConstructorView extends View {
     			if (startstar.first!=-1 && startstar.second<=20) {
     				//If a star exists near where the user lifted, draw a connection
     				if (stopstar.first!=-1 && stopstar.second<=20) {
-    					con.addLine(new IntPair(startstar.first,stopstar.first));
+    					if (con.numLines()<7) {
+    						con.addLine(new IntPair(startstar.first,stopstar.first));
+    					}
     				}
     				//If no star exists at the end point, move the star there
     				else {
