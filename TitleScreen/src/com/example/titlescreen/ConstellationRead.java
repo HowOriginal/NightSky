@@ -1,6 +1,7 @@
 package com.example.titlescreen;
 
 import com.example.reviewiteration.IntPair;
+import com.example.reviewiteration.FloatPair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,6 +34,9 @@ public class ConstellationRead extends Activity {
  private String url = "http://ezhang.myrpi.org/getconstellation.php";
  private ListView listView;
  
+ //THIS IS THE ARRAY WITH EVERYTHING
+ ArrayList<Constellation> sky;
+ 
  @Override
  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
@@ -42,34 +46,34 @@ public class ConstellationRead extends Activity {
  }
  
  public class Constellation {
-		private int id;
-		private ArrayList<IntPair> stars = new ArrayList<IntPair>();
-		private ArrayList<IntPair> lines = new ArrayList<IntPair>();
+		
+		private String id;
+		public ArrayList<FloatPair> stars = new ArrayList<FloatPair>();
+		public ArrayList<IntPair> lines = new ArrayList<IntPair>();
 		
 		//Constructors
 		public Constellation() {
-			id = 0;
+			id = "No id";
 		}
-		public Constellation(int aid) {
+		public Constellation(String aid) {
 			id = aid;
 		}
 		
 		//Get functions
-		public int getId(){return id;}
-		public ArrayList<IntPair> getStars() {return stars;}
-		public IntPair getStar(int index) {return stars.get(index);}
+		public String getId(){return id;}
+		public FloatPair getStar(int index) {return stars.get(index);}
 		public int numStars() {return stars.size();}
 		public ArrayList<IntPair> getLines() {return lines;}
 		public IntPair getLine(int index) {return lines.get(index);}
 		public int numLines() {return lines.size();}
 		
 		//Set functions
-		public void setId(int aid) {id=aid;}
-		public void setStar(int index, IntPair astar) { stars.set(index, astar);}
+		public void setId(String aid) {id=aid;}
+		public void setStar(int index, FloatPair astar) { stars.set(index, astar);}
 		public void setLine(int index, IntPair aline) { lines.set(index, aline);}
 		
 		//Add and Delete functions
-		public void addStar(IntPair astar) {stars.add(astar);}
+		public void addStar(FloatPair astar) {stars.add(astar);}
 		public void deleteStar(int index) {
 			IntPair ip;
 			for (int i=0; i<lines.size(); ++i) {
@@ -165,7 +169,7 @@ public class ConstellationRead extends Activity {
    ArrayList<Constellation>stars;
    
    for (int i = 0; i < jsonMainNode.length(); i++) {
-    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i); 
     
     int id = jsonChildNode.optInt("id");
     float x1 = jsonChildNode.optInt("x1");
@@ -199,8 +203,18 @@ public class ConstellationRead extends Activity {
     int p7b = jsonChildNode.optInt("p7b");
     
     int a=0, b=0;
+    
+    //use this constellation for information
     Constellation temp = new Constellation();
-    temp.setId(id);
+    
+    temp.setId(Integer.toString(id));
+    temp.addStar(new FloatPair(x1, y1));
+    temp.addStar(new FloatPair(x2, y2));
+    temp.addStar(new FloatPair(x3, y3));
+    temp.addStar(new FloatPair(x4, y4));
+    temp.addStar(new FloatPair(x5, y5));
+    temp.addStar(new FloatPair(x6, y6));
+    temp.addStar(new FloatPair(x7, y7));
     
     temp.addLine(new IntPair(p1a, p1b));
     temp.addLine(new IntPair(p2a, p2b));
@@ -210,8 +224,15 @@ public class ConstellationRead extends Activity {
     temp.addLine(new IntPair(p6a, p6b));
     temp.addLine(new IntPair(p7a, p7b));
     
-    String outPut = "Points ";
+    //add to the sky object
+    sky.add(temp);
     
+    //clears it for the next object
+    temp.stars.clear();
+    temp.lines.clear();
+    
+    //dummy output to see how many stars in the sky
+    String outPut = "Points ";
     starlist.add(createconst("points", outPut));
    }
   } catch (JSONException e) {

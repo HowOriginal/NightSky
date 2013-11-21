@@ -1,4 +1,4 @@
-package com.example.reviewiteration;
+package com.example.titlescreen;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,13 +35,15 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
  
-public class EditStory extends Activity {
+public class EditStory extends Activity implements OnClickListener{
  String jsonResult;
  String url = "http://ezhang.myrpi.org/getstory.php";
  String url2 = "http://ezhang.myrpi.org/editstory.php";
@@ -55,6 +57,8 @@ public class EditStory extends Activity {
  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
   setContentView(R.layout.editstory);
+  Button mSubmit = (Button)findViewById(R.id.button1);
+  mSubmit.setOnClickListener(this);
   
   accessWebService();
   
