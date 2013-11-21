@@ -2,15 +2,25 @@ package com.example.titlescreen;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.example.titlescreen.Login.AttemptLogin;
+
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -38,6 +48,9 @@ public class Register extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
+		
+		ActionBar actionBar = getActionBar(); 
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		user = (EditText) findViewById(R.id.username);
 		pass = (EditText) findViewById(R.id.password);
@@ -46,10 +59,37 @@ public class Register extends Activity implements OnClickListener {
 		mRegister.setOnClickListener(this);
 
 	}
+	
+	 @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	        case android.R.id.home:
+	            this.finish();
+	            return true;
+	        }
+	        return super.onOptionsItemSelected(item);
+	    }
 
+//	@Override
+//	public void onClick(View v) {
+//		new CreateUser().execute();
+//	}
 	@Override
 	public void onClick(View v) {
-		new CreateUser().execute();
+	
+			    CreateUser temp = new CreateUser();
+			    temp.execute();
+	
+			    if(!temp.failure)
+			    {
+					Intent j = new Intent(this, LibraryActivity.class);
+					String a = user.getText().toString();
+					j.putExtra("un", a);
+					pass.setText("");
+					startActivity(j);
+			    }
+
+
 	}
 
 	class CreateUser extends AsyncTask<String, String, String> {
