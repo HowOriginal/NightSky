@@ -72,6 +72,9 @@ public class ConstellationRead extends Activity {
 		public void setStar(int index, FloatPair astar) { stars.set(index, astar);}
 		public void setLine(int index, IntPair aline) { lines.set(index, aline);}
 		
+		//Get functions
+		public void getStars() {return stars;}
+		
 		//Add and Delete functions
 		public void addStar(FloatPair astar) {stars.add(astar);}
 		public void deleteStar(int index) {
