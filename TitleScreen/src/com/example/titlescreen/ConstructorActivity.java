@@ -1,4 +1,4 @@
-package com.example.constbuildertest;
+package com.example.titlescreen;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
