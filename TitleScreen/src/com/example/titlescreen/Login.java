@@ -2,6 +2,9 @@ package com.example.titlescreen;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -67,7 +70,19 @@ public class Login extends Activity implements OnClickListener{
 		case R.id.login:
 			    AttemptLogin temp = new AttemptLogin();
 			    temp.execute();
-			    if(temp.failure)
+			try {
+				temp.get(1000, TimeUnit.MILLISECONDS);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TimeoutException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			    if(!temp.failure)
 			    {
 					Intent j = new Intent(this, AddStory.class);
 					String a = user.getText().toString();
@@ -102,7 +117,7 @@ public class Login extends Activity implements OnClickListener{
 		
 		@Override
 		protected String doInBackground(String... args) {
-			 // Check for success tag
+			// Check for success tag
             int success;
             String username = user.getText().toString();
             String password = pass.getText().toString();
