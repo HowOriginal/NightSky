@@ -236,6 +236,23 @@ public class Skyview extends Activity{
 	        }
 	    });
 	    rl.addView(RS);
+	    
+	    //Add the Go to Library button
+	    Button LB = new Button(this);
+	    RelativeLayout.LayoutParams LBP = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	    LBP.addRule(RelativeLayout.BELOW, CS.getId());
+	    LBP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+	    LB.setId(3);
+	    LB.setLayoutParams(LBP);
+	    LB.setText("Go to Library");
+	    LB.setOnClickListener(new View.OnClickListener() {
+	        @Override
+	        public void onClick(View v) {
+	        	
+	        }
+	    });
+	    rl.addView(LB);
+	    
 	    //Remove title bar from my device
 	    //requestWindowFeature(Window.FEATURE_NO_TITLE); 
 	    
