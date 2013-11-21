@@ -41,6 +41,8 @@ public class GetStory extends Activity {
  String jsonResult;
  String url = "http://ezhang.myrpi.org/getstory.php";
  ListView listView;
+ String user;
+ String id;
  
  @Override
  protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +70,15 @@ public class GetStory extends Activity {
  
  @Override
  public boolean onCreateOptionsMenu(Menu menu) {
-  // Inflate the menu; this adds items to the action bar if it is present.
-  getMenuInflater().inflate(R.menu.main, menu);
-  return true;
+
+	 if (user != "") {
+		  getMenuInflater().inflate(R.menu.launch_screen, menu);
+	 }
+	 else {
+		 getMenuInflater().inflate(R.menu.login_menu, menu);
+	 }
+	// getMenuInflater().inflate(R.menu.launch_screen, menu);
+	 return true;
  }
  
  // Async Task to access the web
@@ -83,7 +91,7 @@ public class GetStory extends Activity {
    try {
    List<NameValuePair> para = new ArrayList<NameValuePair>();
    //parameter here just replace with the id of the story
-   para.add(new BasicNameValuePair("id", "1"));
+   para.add(new BasicNameValuePair("id", id));
    httppost.setEntity(new UrlEncodedFormEntity(para));
  
     HttpResponse response = httpclient.execute(httppost);
