@@ -17,7 +17,7 @@
         android:layout_height="0dip"
         android:layout_weight="0.90"
         android:hint="@string/edit_story"
-        android:inputType="textMultiLine|textAutoCorrect" />
+        android:inputType="text|textAutoCorrect" />
     
     <Button
         android:id="@+id/save_story"
