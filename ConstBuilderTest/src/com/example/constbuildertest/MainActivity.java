@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
 
 	private ConstructorView cv;
 	
-	String LOGIN_URL = "http://ezhang.myrpi.org/addminiconst.php";
+	String LOGIN_URL = "http://ezhang.myrpi.org/addconstellation.php";
 	String TAG_SUCCESS = "success";
 	String TAG_MESSAGE = "message";
 	JSONParser jsonParser = new JSONParser();
@@ -90,6 +90,7 @@ public class MainActivity extends Activity {
 	            
 	        }
 	    });
+	    
 	    rl.addView(savebutton);
 	    
 	    setContentView(rl);
@@ -126,26 +127,23 @@ public class MainActivity extends Activity {
 			try {
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("x1", Float.toString(s.get(0).first)));
-				
-				/*params.add(new BasicNameValuePair("x3", Float.toString(s.get(2).first)));
+				params.add(new BasicNameValuePair("x2", Float.toString(s.get(1).first)));
+				params.add(new BasicNameValuePair("x3", Float.toString(s.get(2).first)));
 				params.add(new BasicNameValuePair("x4", Float.toString(s.get(3).first)));
 				params.add(new BasicNameValuePair("x5", Float.toString(s.get(4).first)));
 				params.add(new BasicNameValuePair("x6", Float.toString(s.get(5).first)));
-				params.add(new BasicNameValuePair("x7", Float.toString(s.get(6).first))); */
+				params.add(new BasicNameValuePair("x7", Float.toString(s.get(6).first)));
 				params.add(new BasicNameValuePair("y1", Float.toString(s.get(0).second)));
-				
-				params.add(new BasicNameValuePair("x2", Float.toString(s.get(1).first)));
-				
 				params.add(new BasicNameValuePair("y2", Float.toString(s.get(1).second)));
-				/*params.add(new BasicNameValuePair("y3", Float.toString(s.get(2).second)));
+				params.add(new BasicNameValuePair("y3", Float.toString(s.get(2).second)));
 				params.add(new BasicNameValuePair("y4", Float.toString(s.get(3).second)));
 				params.add(new BasicNameValuePair("y5", Float.toString(s.get(4).second)));
 				params.add(new BasicNameValuePair("y6", Float.toString(s.get(5).second)));
-				params.add(new BasicNameValuePair("y7", Float.toString(s.get(6).second))); */
+				params.add(new BasicNameValuePair("y7", Float.toString(s.get(6).second)));
 				
 				params.add(new BasicNameValuePair("p1a", Integer.toString(l.get(0).first)));
 				params.add(new BasicNameValuePair("p1b", Integer.toString(l.get(0).second)));
-				/*params.add(new BasicNameValuePair("p2a", Integer.toString(l.get(1).first)));
+				params.add(new BasicNameValuePair("p2a", Integer.toString(l.get(1).first)));
 				params.add(new BasicNameValuePair("p2b", Integer.toString(l.get(1).second)));
 				params.add(new BasicNameValuePair("p3a", Integer.toString(l.get(2).first)));
 				params.add(new BasicNameValuePair("p3b", Integer.toString(l.get(2).second)));
@@ -156,27 +154,27 @@ public class MainActivity extends Activity {
 				params.add(new BasicNameValuePair("p6a", Integer.toString(l.get(5).first)));
 				params.add(new BasicNameValuePair("p6b", Integer.toString(l.get(5).second)));
 				params.add(new BasicNameValuePair("p7a", Integer.toString(l.get(6).first)));
-				params.add(new BasicNameValuePair("p7b", Integer.toString(l.get(6).second))); */
+				params.add(new BasicNameValuePair("p7b", Integer.toString(l.get(6).second)));
 				
 				
 				Log.d("request!", "starting");
 				pDialog.setMessage(Integer.toString(params.size()));
 				
 				// Posting user data to script
-				JSONObject json = jsonParser.makeHttpRequest(LOGIN_URL, "POST",
-						params);
-				pDialog.setMessage("hi");
+				jsonParser.makeHttpRequest(LOGIN_URL, "POST", params);
+
 				// full json response
-				Log.d("Add attempt", json.toString());
+				/*Log.d("Add attempt", json.toString());
 				success = 1;
 				if (success == 1) {
 					Log.d("Added!", json.toString());
 					finish();
 				} else {
 					Log.d("Addition Failed!", json.getString(TAG_MESSAGE));
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
+				}*/
+			}finally
+			{
+				
 			}
 
 			return null;
