@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+   
+      <group android:id="@+id/story_group">
+        <item android:id="@+id/viewinsky"
+              android:title="@string/view_in_sky" />
+        <item android:id="@+id/readstory"
+              android:title="@string/read_story" />
+       </group>
+
+</menu>
