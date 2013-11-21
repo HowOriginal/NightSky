@@ -1,14 +1,12 @@
 package com.example.reviewiteration;
 
 import java.lang.reflect.Field;
-//import java.util.Vector;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.R.string;
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
@@ -16,8 +14,11 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -65,14 +66,17 @@ public class Skyview extends Activity{
 	
 	private int ZoomLevel = 0;
 	private int ZoomCap = 300;
-	private int ZoomMin = 0;
-	private float TouchDist = 0;
-	//private int ZoomChange = 0;
+	private int prevdist = 0;
 	private String mode = "drag";
 	private Camera cam;
+	private boolean loadingFlag = true;
+	private boolean loadingText = true;
+	private TextView ld;
+	private String ConstellationID;
+	private long ZoomTimer;
 	
-	private int Id1;
-	private int Id2;
+	private ArrayList<Constellation> ConstellationDBList;
+	private SkyTable SkySpace;
 
 	@SuppressLint("InlinedApi")
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +108,19 @@ public class Skyview extends Activity{
 
 		RelativeLayout rl = new RelativeLayout(this);
 	    rl.addView(mGLView);   
-		
+	    
+	  //Add the loading text
+	    ld = new TextView(this);
+	    RelativeLayout.LayoutParams LD = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	    LD.addRule(RelativeLayout.CENTER_HORIZONTAL);
+	    LD.addRule(RelativeLayout.CENTER_VERTICAL);
+	    ld.setLayoutParams(LD);
+	    ld.setId(22);
+	    ld.setText("Loading, please wait.");
+	    ld.setTextColor(Color.WHITE);
+	    rl.addView(ld);
+	    
+	    
 		//Add the zoom out button
 	    Button zoomout = new Button(this);
 	    RelativeLayout.LayoutParams ZO = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -116,7 +132,7 @@ public class Skyview extends Activity{
 	    zoomout.setOnClickListener(new View.OnClickListener() {
 	        @Override
 	        public void onClick(View v) {
-	        	if(ZoomLevel > 0)
+	        	if(!loadingFlag && ZoomLevel > 0)
 	        	{
 		        	TextView textView = (TextView) findViewById(12345);
 		        	ZoomLevel -= 10;
@@ -125,16 +141,28 @@ public class Skyview extends Activity{
 	        	}
 	        }
 	    });
+	    zoomout.setOnTouchListener(new OnTouchListener()
+	    {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+		        	if(!loadingFlag && ZoomLevel > 0 && System.currentTimeMillis() - ZoomTimer > 50)
+		        	{
+			        	TextView textView = (TextView) findViewById(12345);
+			        	ZoomLevel -= 10;
+			            textView.setText("Zoom: " + ZoomLevel);
+			        	cam.moveCamera(Camera.CAMERA_MOVEOUT, 10);
+			        	ZoomTimer = System.currentTimeMillis ();
+		        	}
+				return true;
+			}
+	    });
 	    rl.addView(zoomout);
 		
 	  //Add the zoom in button
 	    Button zoomin = new Button(this);
 	    RelativeLayout.LayoutParams ZI = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-	    //ZI = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-	    
 	    ZI.addRule(RelativeLayout.ALIGN_LEFT, zoomout.getId());
 	    ZI.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-	    //ZI.addRule(RelativeLayout.ALIGN_BOTTOM);
 	    ZI.addRule(RelativeLayout.ABOVE, zoomout.getId());
 	    zoomin.setId(2);
 	    zoomin.setLayoutParams(ZI);
@@ -142,7 +170,7 @@ public class Skyview extends Activity{
 	    zoomin.setOnClickListener(new View.OnClickListener() {
 	        @Override
 	        public void onClick(View v) {
-	        	if(ZoomLevel < 300)
+	        	if(!loadingFlag && ZoomLevel < 300)
 	        	{
 		        	TextView textView = (TextView) findViewById(12345);
 		        	ZoomLevel += 10;
@@ -150,6 +178,21 @@ public class Skyview extends Activity{
 		        	cam.moveCamera(Camera.CAMERA_MOVEIN, 10);
 	        	}
 	        }
+	    });
+	    zoomin.setOnTouchListener(new OnTouchListener()
+	    {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+		        	if(!loadingFlag && ZoomLevel < 300 && System.currentTimeMillis() - ZoomTimer > 50)
+		        	{
+			        	TextView textView = (TextView) findViewById(12345);
+			        	ZoomLevel += 10;
+			            textView.setText("Zoom: " + ZoomLevel);
+			        	cam.moveCamera(Camera.CAMERA_MOVEIN, 10);
+			        	ZoomTimer = System.currentTimeMillis ();
+		        	}
+				return true;
+			}
 	    });
 	    rl.addView(zoomin);
 	    
@@ -165,9 +208,39 @@ public class Skyview extends Activity{
 	    tv.setTextColor(Color.GREEN);
 	    rl.addView(tv);
 	    
+	  //Add the Constellation selection text
+	    TextView CS = new TextView(this);
+	    CS.setId(23456);
+	    RelativeLayout.LayoutParams CSP = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	    CSP.addRule(RelativeLayout.ALIGN_TOP);
+	    CSP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+	    CSP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+	    CS.setLayoutParams(CSP);
+	    CS.setText("Selection: (none)");
+	    CS.setTextColor(Color.WHITE);
+	    CS.setTextSize(20);
+	    rl.addView(CS);
+	   
+	  //Add the Read Story button
+	    Button RS = new Button(this);
+	    RelativeLayout.LayoutParams RSP = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	    RSP.addRule(RelativeLayout.BELOW, CS.getId());
+	    RSP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+	    RS.setId(3);
+	    RS.setLayoutParams(RSP);
+	    RS.setText("Read Story");
+	    RS.setOnClickListener(new View.OnClickListener() {
+	        @Override
+	        public void onClick(View v) {
+	        	
+	        }
+	    });
+	    rl.addView(RS);
+	    //Remove title bar from my device
+	    //requestWindowFeature(Window.FEATURE_NO_TITLE); 
 	    
-	    
-	    
+	    //Pull and set up constellation info
+	    ConstellationDBList = new ArrayList<Constellation>();
 	    
 	    setContentView(rl);
 	}
@@ -203,25 +276,38 @@ public class Skyview extends Activity{
 	}
 
 	public boolean onTouchEvent(MotionEvent me) {
+		if(!loadingFlag)
+		{
+			if(loadingText)
+			{
+				ld.setVisibility(View.GONE);
+				loadingText = false;
+			}
+		
 		//Event manager for touchscreen presses
+		TextView textView = (TextView) findViewById(12345);
+		TextView selectionText = (TextView) findViewById(23456);
+		
 		if (me.getAction() == MotionEvent.ACTION_DOWN) {
-			Id1 = me.getActionIndex();
-			xpos = me.getX(Id1);
-			ypos = me.getY(Id1);
+			//Id1 = me.getActionIndex();
+			xpos = me.getX(0);
+			ypos = me.getY(0);
 			
 			SimpleVector dir = Interact2D.reproject2D3DWS(cam, fb, (int)Math.round(xpos), (int)Math.round(ypos)-60).normalize();
 			Object[] res = world.calcMinDistanceAndObject3D(cam.getPosition(), dir, 1000 /*or whatever*/);
 			
-			TextView textView = (TextView) findViewById(12345);
-            
+			//Text change events
             if(res[1] == null)
             {
-            	textView.setText("null");
+            	ConstellationID = "null";
+            	selectionText.setText("Selection: (none)");
+            	//textView.setText("null");
             }
             else
             {
-            	textView.setText(((Object3D) res[1]).getName());
-            	//textView.setText((res[0]).toString() + "\n" + ((Object3D) res[1]).getName());
+            	ConstellationID = ((Object3D) res[1]).getName();
+            	selectionText.setText("Selection: " + ConstellationID);
+            	//textView.setText(ConstellationID);
             }
 			
 			return true;
@@ -236,27 +322,48 @@ public class Skyview extends Activity{
 		}
 
 		if (me.getAction() == MotionEvent.ACTION_MOVE) {
-
-			//xpos = me.getX(0);
-			//ypos = me.getY(0);
-			//x2pos = me.getX(1);
-			//y2pos = me.getY(1);
+			//If only one finger press, me.getX(1) == me.getX(0)
+			x2pos = me.getX(1);
+			y2pos = me.getY(1);
+			/*float xdist = x2pos - xpos;
+			float ydist = y2pos - ypos;
+			int totaldist = (int)Math.sqrt(xdist*xdist + ydist*ydist);
+			//textView.setText("xdist = " + xdist + "\nydist = " + ydist);
+			//if the totaldist < 150, we are guaranteed that there are two finger presses detected. Thus we can perform zoom and pan.
+			if(totaldist < 150)
+			{
+				//textView.setText("Distance = too small");
+				totaldist = 150;
+			}
+			else
+			{
+				//textView.setText("Distance = " + totaldist);
+			}
+			int deltadist = totaldist - prevdist;
+			deltadist = (int)Math.round(deltadist/1f);
 			
-			//float xdist = x2pos - xpos;
-			//float ydist = y2pos - ypos;
+				/*ZoomLevel += deltadist;
+	            textView.setText("Zoom: \n" + ZoomLevel);
+	        	cam.moveCamera(Camera.CAMERA_MOVEIN, deltadist);
 			
+			
+        	
+			prevdist = totaldist;*/
+			/*
 			if(mode == "zoom")
 			{
 				if(ZoomLevel < ZoomCap)
 				{
-					TextView textView = (TextView) findViewById(12345);
+					//TextView textView = (TextView) findViewById(12345);
 		        	ZoomLevel += 1;
 		            textView.setText("Zoom: \n" + ZoomLevel);
 		        	cam.moveCamera(Camera.CAMERA_MOVEIN, 1);
 				}
 				return true;
 			}
-			else if(mode == "drag")
+			*/
+			//else if
+			if(mode == "drag")
 			{
 				float xd = me.getX() - xpos;
 				float yd = me.getY() - ypos;
@@ -295,7 +402,7 @@ public class Skyview extends Activity{
 		} catch (Exception e) {
 			// No need for this...
 		}
-
+		}
 		return super.onTouchEvent(me);
 	}
 	
@@ -316,7 +423,7 @@ public class Skyview extends Activity{
 			SimpleVector Origin = new SimpleVector(0,0,500);
 			
 			//Retrieve constellation information
-			ArrayList<IntPair> StarList = new ArrayList<IntPair>();
+			ArrayList<FloatPair> StarList = new ArrayList<FloatPair>();
 			ArrayList<IntPair> LineList = new ArrayList<IntPair>();
 			LineList = Con.getLines();
 			StarList = Con.getStars();
@@ -324,12 +431,15 @@ public class Skyview extends Activity{
 			//List of all objects created for constellation
 			ArrayList<SimpleVector> StarVectors = new ArrayList<SimpleVector>(StarList.size());
 			
-			//Texture StarTexture = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getResources().getDrawable(R.drawable.ic_launcher)), 64, 64));
-			//TextureManager.getInstance().addTexture("stars", StarTexture);
+			//Find rotation values for empty sky location
+			IntPair RotValues = SkySpace.FindFirstEmptySlot();
+			//Log.i("SKYSPACE", RotValues.first + " " + RotValues.second);
+			int yAxisRotation = SkySpace.GetXrot(RotValues.first, RotValues.second);
+			int xAxisRotation = SkySpace.GetYrot(RotValues.first, RotValues.second);
 			
 			//Build the Constellation clickable
 			SimpleVector Point = new SimpleVector(0, 0, 450);
-			Object3D Const = Primitives.getSphere(30);
+			Object3D Const = Primitives.getSphere(50);
 			Const.calcTextureWrapSpherical();
 			Const.setCollisionMode(Object3D.COLLISION_CHECK_OTHERS);
 			Const.setTexture("SkyTexture");
@@ -338,34 +448,36 @@ public class Skyview extends Activity{
 			Const.strip();
 			Const.build();
 			Sky.addObject(Const);
-			Point.rotateY(0.5f);
+			Point.rotateX((float)yAxisRotation * 3.1465f/180);
+			Point.rotateY((float)xAxisRotation * 3.1465f/180);
 			Const.setOrigin(Point);
 			Const.setTransparency(0);
 			Const.setLighting(Object3D.LIGHTING_NO_LIGHTS);
+			
 			//Builds the stars 
 			for(int i = 0; i < StarList.size(); i++)
 			{
 				//Draw the star at the origin+location
-				float x = Origin.x + StarList.get(i).first;
-				float y = Origin.y + StarList.get(i).second;
+				float x = Origin.x + StarList.get(i).first*50;
+				float y = Origin.y + StarList.get(i).second*50;
 				Point = new SimpleVector(x, y, 450);
-				//Apply rotation to origin+star position; for now none applicable
 				
 				//Build and place star
 				Object3D Star = Primitives.getSphere(10);
 				Star.calcTextureWrapSpherical();
-				//Star.setCollisionMode(Object3D.COLLISION_CHECK_OTHERS);
 				Star.setTexture("stars");
 				Star.setCulling(false);
 				Star.setName(Con.getId());
 				Star.strip();
 				Star.build();
 				Sky.addObject(Star);
-				Point.rotateY(0.5f);
+				Point.rotateX((float)yAxisRotation * 3.1465f/180);
+				Point.rotateY((float)xAxisRotation * 3.1465f/180);
 				Star.setOrigin(Point);
 				StarVectors.add(Point);
 			}
             
+			//Build the lines
 			for(int i = 0; i < LineList.size(); i++)
 			{
 				SimpleVector[] LineTestPts = new SimpleVector[2];
@@ -387,18 +499,48 @@ public class Skyview extends Activity{
 			
 			//Testcase code
 			Constellation TestCase = new Constellation();
+			IntPair tempI = new IntPair(0, 0);
+			FloatPair tempF = new FloatPair(0f, 0f);
 			TestCase.setId("Test constellation");
-			TestCase.addStar(new IntPair(0,0));
-			TestCase.addStar(new IntPair(20,20));
-			TestCase.addStar(new IntPair(20,-20));
-			TestCase.addStar(new IntPair(-20,20));
-			TestCase.addStar(new IntPair(-20,-20));
-			TestCase.addLine(new IntPair(0,1));
-			TestCase.addLine(new IntPair(1,2));
-			TestCase.addLine(new IntPair(2,3));
-			TestCase.addLine(new IntPair(3,4));
-			TestCase.addLine(new IntPair(0,4));
-			DrawConstellation(TestCase, Sky);
+			TestCase.addStar(tempF);
+			tempF = new FloatPair(.5f,.5f);
+			TestCase.addStar(tempF);
+			tempF = new FloatPair(.5f,-.5f);
+			TestCase.addStar(tempF);
+			tempF = new FloatPair(-.5f,.5f);
+			TestCase.addStar(tempF);
+			tempF = new FloatPair(-.5f,-.5f);
+			TestCase.addStar(tempF);
+			tempF = new FloatPair(-1f,-0f);
+			TestCase.addStar(tempF);
+			tempF = new FloatPair(1f,-0f);
+			TestCase.addStar(tempF);
+			
+			tempI = new IntPair(0, 1);
+			TestCase.addLine(tempI);
+			tempI = new IntPair(1, 2);
+			TestCase.addLine(tempI);
+			tempI = new IntPair(2, 3);
+			TestCase.addLine(tempI);
+			tempI = new IntPair(3, 4);
+			TestCase.addLine(tempI);
+			tempI = new IntPair(4, 0);
+			TestCase.addLine(tempI);
+			tempI = new IntPair(5, 6);
+			TestCase.addLine(tempI);
+			tempI = new IntPair(3, 5);
+			TestCase.addLine(tempI);
+			tempF = null;
+			tempI = null;
+			for(int i = 0; i < 3; i++)
+			{//15 is cap
+				ConstellationDBList.add(TestCase);
+			}
+		
+			for(int i = 0; i < ConstellationDBList.size(); i++)
+			{
+				DrawConstellation(ConstellationDBList.get(i), Sky);
+			}
 		}
 		
 		public void onSurfaceChanged(GL10 gl, int w, int h) {
@@ -430,8 +572,9 @@ public class Skyview extends Activity{
 				sky.strip();
 				sky.build();
 				
+				SkySpace = new SkyTable();
 				BuildStars(world);
-
+				
 				world.addObject(sky);
 				
 				//Set up camera
@@ -457,6 +600,7 @@ public class Skyview extends Activity{
 
 		public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 			//Necessary empty function
+			
 		}
 
 		public void onDrawFrame(GL10 gl) {
@@ -483,6 +627,8 @@ public class Skyview extends Activity{
 			world.renderScene(fb);
 			world.draw(fb);
 			fb.display();
+			//Enable button presses
+			loadingFlag = false;
 
 			if (System.currentTimeMillis() - time >= 1000) {
 				Logger.log(fps + "fps");
