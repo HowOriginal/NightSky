@@ -15,6 +15,8 @@ import android.graphics.Color;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -427,7 +429,26 @@ public class Skyview extends Activity{
 		return true;
 	}
 	
-	class MyRenderer implements GLSurfaceView.Renderer {
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+		case android.R.id.home:
+			this.finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		getMenuInflater().inflate(R.menu.login_menu,  menu);
+		return true;
+	}
+		
+		class MyRenderer implements GLSurfaceView.Renderer {
 
 		private long time = System.currentTimeMillis();
 
