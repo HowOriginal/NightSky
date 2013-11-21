@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Constellation {
 	
 	private String id;
-	private ArrayList<FloatPair> stars = new ArrayList<FloatPair>();
-	private ArrayList<IntPair> lines = new ArrayList<IntPair>();
+	public ArrayList<FloatPair> stars = new ArrayList<FloatPair>();
+	public ArrayList<IntPair> lines = new ArrayList<IntPair>();
 	
 	//Constructors
 	public Constellation() {
