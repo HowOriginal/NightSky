@@ -11,7 +11,7 @@ import android.widget.Button;
 
 
 public class LaunchScreen extends Activity {
-
+	private String user;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +25,7 @@ public class LaunchScreen extends Activity {
 	             // Perform action on click   
 	
 	             Intent activityChangeIntent = new Intent(LaunchScreen.this, LibraryActivity.class);
-	
-	             // currentContext.startActivity(activityChangeIntent);
-	
+	             activityChangeIntent.putExtra("text", user);
 	             LaunchScreen.this.startActivity(activityChangeIntent);
 	         }
 	     });
@@ -38,22 +36,27 @@ public class LaunchScreen extends Activity {
 	             // Perform action on click   
 	
 	             Intent activityChangeIntent = new Intent(LaunchScreen.this, SkyView.class);
-	
-	             // currentContext.startActivity(activityChangeIntent);
-	
+	             activityChangeIntent.putExtra("text", user);
 	             LaunchScreen.this.startActivity(activityChangeIntent);
 	         }
 	     });
 
   }  
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    //MenuInflater inflater = getMenuInflater();
-	    //inflater.inflate(R.menu.login_menu, menu);
-		getMenuInflater().inflate(R.menu.login_menu, menu);
-	    return true;
-	}
+	
+	 @Override
+	 public boolean onCreateOptionsMenu(Menu menu) {
+
+		 if (user != "") {
+			  getMenuInflater().inflate(R.menu.launch_screen, menu);
+		 }
+		 else {
+			 getMenuInflater().inflate(R.menu.login_menu, menu);
+		 }
+		// getMenuInflater().inflate(R.menu.launch_screen, menu);
+		 return true;
+	 }
+	 
 	//setGroupVisible() to control login & register buttons
 	public boolean onOptionsItemSelected(MenuItem item) {
 		  switch (item.getItemId()) {
