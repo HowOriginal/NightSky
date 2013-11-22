@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 
 @SuppressLint("InlinedApi")
-public class MainActivity extends Activity {
+public class ConstructorActivity extends Activity {
 
 	private ConstructorView cv;
 	
@@ -130,10 +130,22 @@ public class MainActivity extends Activity {
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				
 				for (int i=0; i<7; ++i) {
-					params.add(new BasicNameValuePair(starfieldnames[i], Float.toString(s.get(i).first)));
-					params.add(new BasicNameValuePair(starfieldnames[i+7], Float.toString(s.get(i).second)));
-					params.add(new BasicNameValuePair(linefieldnames[2*i], Integer.toString(l.get(i).first)));
-					params.add(new BasicNameValuePair(linefieldnames[2*i+1], Integer.toString(l.get(i).second)));
+					if (s.size()>i) {
+						params.add(new BasicNameValuePair(starfieldnames[i], Float.toString(s.get(i).first)));
+						params.add(new BasicNameValuePair(starfieldnames[i+7], Float.toString(s.get(i).second)));
+					}
+					else {
+						params.add(new BasicNameValuePair(starfieldnames[i], "0"));
+						params.add(new BasicNameValuePair(starfieldnames[i+7], "0"));
+					}
+					if (l.size()>i) {
+						params.add(new BasicNameValuePair(linefieldnames[2*i], Integer.toString(l.get(i).first)));
+						params.add(new BasicNameValuePair(linefieldnames[2*i+1], Integer.toString(l.get(i).second)));
+					}
+					else {
+						params.add(new BasicNameValuePair(linefieldnames[2*i], "0"));
+						params.add(new BasicNameValuePair(linefieldnames[2*i+1], "0"));
+					}
 				}
 				/*
 				params.add(new BasicNameValuePair("x1", Float.toString(s.get(0).first)));
@@ -194,7 +206,7 @@ public class MainActivity extends Activity {
 		protected void onPostExecute(String file_url) {
 			pDialog.dismiss();
 			if (file_url != null) {
-				Toast.makeText(MainActivity.this, file_url, Toast.LENGTH_LONG)
+				Toast.makeText(ConstructorActivity.this, file_url, Toast.LENGTH_LONG)
 						.show();
 			}
 		}
