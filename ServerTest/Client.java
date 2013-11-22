@@ -42,5 +42,6 @@ public class Client {
         out.close();
         in.close();
         s.close();
+        //Added comment
     }
 }
