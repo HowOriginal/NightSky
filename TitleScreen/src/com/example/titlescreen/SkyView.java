@@ -522,12 +522,12 @@ public class SkyView extends Activity{
                         TestCase.addLine(tempI);
                         tempF = null;
                         tempI = null;
-                        for(int i = 0; i < 3; i++)
+                        for(int i = 0; i < 5; i++)
                         {//15 is cap
-                                //ConstellationDBList.add(TestCase);
+                                ConstellationDBList.add(TestCase);
                         }
-						ConstellationRead cr = new ConstellationRead();
-						ConstellationDBList = cr;
+						//ConstellationRead cr = new ConstellationRead();
+						//ConstellationDBList = cr.sky.clone();
                         for(int i = 0; i < ConstellationDBList.size(); i++)
                         {
                                 DrawConstellation(ConstellationDBList.get(i), Sky);
