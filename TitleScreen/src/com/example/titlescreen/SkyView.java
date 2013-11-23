@@ -8,8 +8,10 @@ import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -108,7 +110,7 @@ public class SkyView extends Activity{
                 mGLView.setRenderer(renderer);
                 mGLView.setZOrderMediaOverlay(true);
                 
-                  ActionBar actionBar = getActionBar(); //getSupportActionBar()
+              ActionBar actionBar = getActionBar(); //getSupportActionBar()
         	  actionBar.setDisplayHomeAsUpEnabled(true);
                 
 
@@ -254,11 +256,11 @@ public class SkyView extends Activity{
          LB.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-                 Intent activityChangeIntent = new Intent(Skyview.this, LibraryActivity.class);
+                 Intent activityChangeIntent = new Intent(SkyView.this, LibraryActivity.class);
 
 	             // currentContext.startActivity(activityChangeIntent);
 
-	             Skyview.this.startActivity(activityChangeIntent);
+	             SkyView.this.startActivity(activityChangeIntent);
          }
          });
          rl.addView(LB);
