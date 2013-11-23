@@ -51,24 +51,15 @@ public class ConstructorActivity extends Activity {
 		RelativeLayout rl = new RelativeLayout(this);
 		
 		cv = new ConstructorView(this);
-		cv.setBackgroundColor(Color.WHITE);
+		cv.setBackgroundColor(Color.rgb(10,10,45));
 		rl.addView(cv);
         
-        
+                ActionBar actionBar = getActionBar(); //getSupportActionBar()
+		actionBar.setDisplayHomeAsUpEnabled(true);
 		
-        Button backbutton = new Button(this);
+
 	    RelativeLayout.LayoutParams bp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-	    bp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-	    bp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-	    backbutton.setLayoutParams(bp);
-	    backbutton.setText("Back");
-	    backbutton.setOnClickListener(new View.OnClickListener() {
-	        @Override
-	        public void onClick(View v) {
-	            //Implement
-	        }
-	    });
-	    rl.addView(backbutton);
+
 	    
 	    Button savebutton = new Button(this);
 	    bp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -210,6 +201,23 @@ public class ConstructorActivity extends Activity {
 						.show();
 			}
 		}
+	}
+	
+		 @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	        case android.R.id.home:
+	            this.finish();
+	            return true;
+	        }
+	        return super.onOptionsItemSelected(item);
+	    }
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.launch_screen, menu);
+		return true;
 	}
 	
 }
