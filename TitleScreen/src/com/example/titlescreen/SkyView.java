@@ -304,7 +304,7 @@ public class SkyView extends Activity{
                 {
                         if(loadingText)
                         {
-                                ld.setVisibility(View.GONE);
+                                //ld.setVisibility(View.GONE);
                                 loadingText = false;
                         }
                 
@@ -324,7 +324,7 @@ public class SkyView extends Activity{
             if(res[1] == null)
             {
                     ConstellationID = "null";
-                    selectionText.setText("Selection: (none)");
+                    selectionText.setText("Selection: (sky)");
                     //textView.setText("null");
             }
             else
@@ -346,53 +346,12 @@ public class SkyView extends Activity{
                 }
 
                 if (me.getAction() == MotionEvent.ACTION_MOVE) {
-                        //If only one finger press, me.getX(1) == me.getX(0)
-                        x2pos = me.getX(1);
-                        y2pos = me.getY(1);
-                        /*float xdist = x2pos - xpos;
-                        float ydist = y2pos - ypos;
-                        int totaldist = (int)Math.sqrt(xdist*xdist + ydist*ydist);
-                        //textView.setText("xdist = " + xdist + "\nydist = " + ydist);
-                        //if the totaldist < 150, we are guaranteed that there are two finger presses detected. Thus we can perform zoom and pan.
-                        if(totaldist < 150)
-                        {
-                                //textView.setText("Distance = too small");
-                                totaldist = 150;
-                        }
-                        else
-                        {
-                                //textView.setText("Distance = " + totaldist);
-                        }
-                        int deltadist = totaldist - prevdist;
-                        deltadist = (int)Math.round(deltadist/1f);
-                        
-                                /*ZoomLevel += deltadist;
-         textView.setText("Zoom: \n" + ZoomLevel);
-                 cam.moveCamera(Camera.CAMERA_MOVEIN, deltadist);
-                        
-                        
-        
-                        prevdist = totaldist;*/
-                        /*
-                        if(mode == "zoom")
-                        {
-                                if(ZoomLevel < ZoomCap)
-                                {
-                                        //TextView textView = (TextView) findViewById(12345);
-                         ZoomLevel += 1;
-                 textView.setText("Zoom: \n" + ZoomLevel);
-                         cam.moveCamera(Camera.CAMERA_MOVEIN, 1);
-                                }
-                                return true;
-                        }
-                        */
-                        //else if
                         if(mode == "drag")
                         {
-                                float xd = me.getX() - xpos;
-                                float yd = me.getY() - ypos;
-                                xpos = me.getX();
-                                ypos = me.getY();
+                                float xd = me.getX(0) - xpos;
+                                float yd = me.getY(0) - ypos;
+                                xpos = me.getX(0);
+                                ypos = me.getY(0);
                                 touchTurn = xd / -100f;
                                 touchTurnUp = yd / -100f;
                         }
