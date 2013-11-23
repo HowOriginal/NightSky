@@ -109,7 +109,7 @@ public class ConstructorActivity extends Activity {
 			
 			try {
 				String[] starfieldnames = {"x1","x2","x3","x4","x5","x6","x7","y1","y2","y3","y4","y5","y6","y7"};
-				String[] linefieldnames = {"p1a","p1b","p1a","p1b","p1a","p1b","p1a","p1b","p1a","p1b","p1a","p1b","p1a","p1b"};
+				String[] linefieldnames = {"p1a","p1b","p2a","p2b","p3a","p3b","p4a","p4b","p5a","p5b","p6a","p6b","p7a","p7b"};
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				
 				for (int i=0; i<7; ++i) {
