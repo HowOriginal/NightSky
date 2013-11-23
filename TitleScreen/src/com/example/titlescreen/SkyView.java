@@ -329,6 +329,7 @@ public class SkyView extends Activity{
             }
             else
             {
+					cam.lookAt(((Object3D) res[1]).getTransformedCenter());
                     ConstellationID = ((Object3D) res[1]).getName();
                     selectionText.setText("Selection: " + ConstellationID);
                     //textView.setText(ConstellationID);
@@ -423,7 +424,7 @@ public class SkyView extends Activity{
                         
                         //Build the Constellation clickable
                         SimpleVector Point = new SimpleVector(0, 0, 450);
-                        Object3D Const = Primitives.getSphere(50);
+                        Object3D Const = Primitives.getSphere(100);
                         Const.calcTextureWrapSpherical();
                         Const.setCollisionMode(Object3D.COLLISION_CHECK_OTHERS);
                         Const.setTexture("SkyTexture");
