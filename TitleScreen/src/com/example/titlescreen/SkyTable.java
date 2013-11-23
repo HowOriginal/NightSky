@@ -32,6 +32,25 @@ public class SkyTable
 	
 	public IntPair FindFirstEmptySlot()
 	{
+		boolean found = false;
+		int loci = 0;
+		int locj = 0;
+		Random generator = new Random();
+		
+		//We know there is room in the table for up to 80 constellations, and that limit is not reached, so this loop will end.
+		while(!found)
+		{
+			loci = generator.nextInt(8);
+			locj = generator.nextInt(8);
+			if(!Table.get(loci*9+locj).isUsed)
+			{
+				SetTableSlot(loci,locj, true);
+				IntPair rotationCoordinates = new IntPair(loci,locj);
+				found = true;
+				return rotationCoordinates;
+			}
+		}
+		/*
 		for(int i = 0; i < 9; i++)
 		{
 			for(int j = 0; j < 9; j++)
@@ -44,6 +63,7 @@ public class SkyTable
 				}
 			}
 		}
+		*/
 		IntPair rotationCoordinates = new IntPair(0,0);
 		return rotationCoordinates;
 	}
