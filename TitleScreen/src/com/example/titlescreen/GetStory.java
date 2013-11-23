@@ -47,7 +47,7 @@ public class GetStory extends Activity {
  @Override
  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
-  setContentView(R.layout.getstory);
+  setContentView(R.layout.readstory);
   
   
   accessWebService();
@@ -91,7 +91,7 @@ public class GetStory extends Activity {
    try {
    List<NameValuePair> para = new ArrayList<NameValuePair>();
    //parameter here just replace with the id of the story
-   para.add(new BasicNameValuePair("id", id));
+   para.add(new BasicNameValuePair("id", "1"));
    httppost.setEntity(new UrlEncodedFormEntity(para));
  
     HttpResponse response = httpclient.execute(httppost);

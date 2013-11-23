@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ConstBuilder" >
+
+    <Button
+        android:id="@+id/starbutton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/startext" />
+
+    <Button
+        android:id="@+id/linebutton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/starbutton"
+        android:layout_alignBottom="@+id/starbutton"
+        android:layout_toRightOf="@+id/starbutton"
+        android:text="@string/linetext" />
+
+    <TextView
+        android:id="@+id/xtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/linebutton"
+        android:layout_toRightOf="@+id/linebutton"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/ytv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/linebutton"
+        android:layout_toRightOf="@+id/linebutton"
+        android:text="" />
+    
+    <DrawView
+        android:id="@+id/drawview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
+</RelativeLayout>

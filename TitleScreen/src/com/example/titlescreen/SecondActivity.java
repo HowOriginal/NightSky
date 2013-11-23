@@ -49,6 +49,7 @@ public class SecondActivity extends Activity {
 	  listView = (ListView) findViewById(R.id.listView1);
 	  
 	  user = getIntent().getStringExtra("text");
+	 
 	  
 	  listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 	  listView.setMultiChoiceModeListener(new MultiChoiceModeListener() {
@@ -70,10 +71,15 @@ public class SecondActivity extends Activity {
 	                  mode.finish(); // Action picked, so close the CAB
 	                  return true;
 	              case R.id.readstory:
-	                  Intent activityChangeIntent2 = new Intent(SecondActivity.this, ReadStory.class);
+	                  Intent activityChangeIntent2 = new Intent(SecondActivity.this, GetStory.class);
 	                  SecondActivity.this.startActivity(activityChangeIntent2);
+	                  activityChangeIntent2.putExtra("id", id);
 	                  mode.finish(); // Action picked, so close the CAB
 	                  return true;
+			      case R.id.login:  startActivity(new Intent(SecondActivity.this, Login.class));;
+                  	  return true;
+			      case R.id.register:  startActivity(new Intent(SecondActivity.this, Register.class));;
+					  return true;   
 	              default:
 	                  return false;
 	          }

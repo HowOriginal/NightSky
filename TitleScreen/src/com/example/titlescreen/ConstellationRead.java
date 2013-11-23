@@ -1,7 +1,7 @@
-package com.example.reviewiteration;
+package com.example.titlescreen;
 
-import com.example.reviewiteration.IntPair;
-import com.example.reviewiteration.FloatPair;
+import com.example.titlescreen.IntPair;
+import com.example.titlescreen.FloatPair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,14 +33,15 @@ public class ConstellationRead extends Activity {
  private String jsonResult;
  private String url = "http://ezhang.myrpi.org/getconstellation.php";
  private ListView listView;
+ private String user;
  
  //THIS IS THE ARRAY WITH EVERYTHING
  ArrayList<Constellation> sky;
  
-@Override
+ @Override
  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
-  //setContentView(R.layout.constellationread);
+  setContentView(R.layout.constellationread);
   listView = (ListView) findViewById(R.id.listView2);
   accessWebService();
  }
@@ -73,7 +74,7 @@ public class ConstellationRead extends Activity {
 		public void setLine(int index, IntPair aline) { lines.set(index, aline);}
 		
 		//Get functions
-		public void getStars() {return stars;}
+		public ArrayList<FloatPair> getStars() {return stars;}
 		
 		//Add and Delete functions
 		public void addStar(FloatPair astar) {stars.add(astar);}
@@ -104,9 +105,15 @@ public class ConstellationRead extends Activity {
  
  @Override
  public boolean onCreateOptionsMenu(Menu menu) {
-  // Inflate the menu; this adds items to the action bar if it is present.
-  getMenuInflater().inflate(R.menu.main, menu);
-  return true;
+
+	 if (user != "") {
+		  getMenuInflater().inflate(R.menu.launch_screen, menu);
+	 }
+	 else {
+		 getMenuInflater().inflate(R.menu.login_menu, menu);
+	 }
+	// getMenuInflater().inflate(R.menu.launch_screen, menu);
+	 return true;
  }
  
  // Async Task to access the web
@@ -205,6 +212,8 @@ public class ConstellationRead extends Activity {
     int p7a = jsonChildNode.optInt("p7a");
     int p7b = jsonChildNode.optInt("p7b");
     
+    int a=0, b=0;
+    
     //use this constellation for information
     Constellation temp = new Constellation();
     
@@ -233,13 +242,23 @@ public class ConstellationRead extends Activity {
     temp.lines.clear();
     
     //dummy output to see how many stars in the sky
-    /*String outPut = "Points ";
-    starlist.add(createconst("points", outPut));*/
+    String outPut = "Points ";
+    starlist.add(createconst("points", outPut));
    }
   } catch (JSONException e) {
    Toast.makeText(getApplicationContext(), "Error" + e.toString(),
      Toast.LENGTH_SHORT).show();
   }
  
+  SimpleAdapter simpleAdapter = new SimpleAdapter(this, starlist,
+    android.R.layout.simple_list_item_1,
+    new String[] { "points" }, new int[] { android.R.id.text1 });
+  listView.setAdapter(simpleAdapter);
+ }
+ 
+ private HashMap<String, String> createconst(String name, String number) {
+  HashMap<String, String> constellation = new HashMap<String, String>();
+  constellation.put(name, number);
+  return constellation;
  }
 }

@@ -11,7 +11,7 @@ import android.widget.Button;
 
 
 public class LaunchScreen extends Activity {
-	private String user;
+    String user = "";
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {

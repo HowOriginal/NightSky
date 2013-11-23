@@ -118,15 +118,15 @@ public class SkyView extends Activity{
          rl.addView(mGLView);
         
          //Add the loading text
-         ld = new TextView(this);
-         RelativeLayout.LayoutParams LD = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-         LD.addRule(RelativeLayout.CENTER_HORIZONTAL);
-         LD.addRule(RelativeLayout.CENTER_VERTICAL);
-         ld.setLayoutParams(LD);
-         ld.setId(22);
-         ld.setText("Loading, please wait.");
-         ld.setTextColor(Color.WHITE);
-         rl.addView(ld);
+//         ld = new TextView(this);
+//         RelativeLayout.LayoutParams LD = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+//         LD.addRule(RelativeLayout.CENTER_HORIZONTAL);
+//         LD.addRule(RelativeLayout.CENTER_VERTICAL);
+//         ld.setLayoutParams(LD);
+//         ld.setId(22);
+//         ld.setText("Loading, please wait.");
+//         ld.setTextColor(Color.WHITE);
+//         rl.addView(ld);
         
         
                 //Add the zoom out button

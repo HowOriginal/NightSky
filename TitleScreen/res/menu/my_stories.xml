@@ -3,7 +3,7 @@
      <group android:id="@+id/story_group">
         <item android:id="@+id/editstory"
               android:title="@string/edit_story" />
-        <item android:id="@+id/deletestory"
-              android:title="@string/delete_story" />
+        <item android:id="@+id/readstory"
+              android:title="@string/read_story" />
 	</group>
 </menu>

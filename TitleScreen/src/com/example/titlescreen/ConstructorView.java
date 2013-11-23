@@ -20,7 +20,7 @@ public class ConstructorView extends View {
     @SuppressLint("NewApi")
 	public ConstructorView(Context context) {
         super(context);
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.WHITE);
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();

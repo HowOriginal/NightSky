@@ -20,102 +20,41 @@ import org.json.JSONObject;
  
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-//import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
-//import android.widget.TextView;
+import android.widget.TextView;
 import android.widget.Toast;
  
-public class LibraryActivity extends Activity {
+public class DisplayStory extends Activity {
  private String jsonResult;
  private String url = "http://ezhang.myrpi.org/readstory.php";
  private ListView listView;
- String user; 
- Integer id;
- //user = getIntent().getExtras().getString("un");
- 
+ private TextView s_author;
+ private TextView s_title;
+ private TextView s_story;
  
  @Override
  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
-  setContentView(R.layout.library_screen);
-  ActionBar actionBar = getActionBar(); //getSupportActionBar()
-  actionBar.setDisplayHomeAsUpEnabled(true);
-  
-  	//Intent intent = getIntent();
-  	//intent.getExtras().getString("text");
- 	user = getIntent().getStringExtra("text");
-  
-//	TextView t = (TextView)findViewById(R.id.textname);
-//	t.setText(getIntent().getExtras().getString("un"));
-  
-
+  setContentView(R.layout.displaystory);
+  s_author = (TextView) findViewById(R.id.textView3);
+  s_title = (TextView) findViewById(R.id.textView1);
+  s_story = (TextView) findViewById(R.id.textView2);
   listView = (ListView) findViewById(R.id.listView1);
   accessWebService();
   
-	 final Button firstact = (Button) findViewById(R.id.button2);
-     firstact.setOnClickListener(new View.OnClickListener() {
-         public void onClick(View v) {
-             // Perform action on click   
-
-             Intent activityChangeIntent = new Intent(LibraryActivity.this, FirstActivity.class);
-			 activityChangeIntent.putExtra("text", user);
-             activityChangeIntent.putExtra("id", id);
-             LibraryActivity.this.startActivity(activityChangeIntent);
-         }
-     });
-     
-	 final Button secondact = (Button) findViewById(R.id.button1);
-     secondact.setOnClickListener(new View.OnClickListener() {
-         public void onClick(View v) {
-             // Perform action on click   
-
-             Intent activityChangeIntent = new Intent(LibraryActivity.this, SecondActivity.class);
-             activityChangeIntent.putExtra("text", user);
-             activityChangeIntent.putExtra("id", id);
-             LibraryActivity.this.startActivity(activityChangeIntent);
-         }
-     });
-     
-	 final Button newstory = (Button) findViewById(R.id.button3);
-     newstory.setOnClickListener(new View.OnClickListener() {
-         public void onClick(View v) {
-             // Perform action on click   
-
-             Intent activityChangeIntent = new Intent(LibraryActivity.this, NewStoryScreen.class);
-             activityChangeIntent.putExtra("text", user);
-             LibraryActivity.this.startActivity(activityChangeIntent);
-         }
-     });
- }
- @Override
- public boolean onOptionsItemSelected(MenuItem item) {
-     switch (item.getItemId()) {
-     case android.R.id.home:
-         this.finish();
-         return true;
-     }
-     return super.onOptionsItemSelected(item);
  }
  
  @Override
  public boolean onCreateOptionsMenu(Menu menu) {
-
-	 if (user != "") {
-		  getMenuInflater().inflate(R.menu.launch_screen, menu);
-	 }
-	 else {
-		 getMenuInflater().inflate(R.menu.login_menu, menu);
-	 }
-	// getMenuInflater().inflate(R.menu.launch_screen, menu);
-	 return true;
+  // Inflate the menu; this adds items to the action bar if it is present.
+  getMenuInflater().inflate(R.menu.launch_screen, menu);
+  return true;
  }
  
  // Async Task to access the web
@@ -181,9 +120,8 @@ public class LibraryActivity extends Activity {
     JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
     String name = jsonChildNode.optString("username");
     String title = jsonChildNode.optString("title");
-    id = jsonChildNode.optInt("id");
-    //String story = jsonChildNode.optString("story");
-    String outPut = name + "// Title: " + title;
+    String story = jsonChildNode.optString("story");
+    String outPut = name + "// Title: " + title + "\n" + story;
     employeeList.add(createEmployee("employees", outPut));
    }
   } catch (JSONException e) {

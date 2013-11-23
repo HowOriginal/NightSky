@@ -13,40 +13,31 @@
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout1"
         android:layout_centerHorizontal="true" >
     </ListView>
 
-    <LinearLayout
+  <!-- <LinearLayout
         android:id="@+id/linearLayout1"
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-	    <Button
-	        android:id="@+id/button2"
-	        style="?android:attr/buttonBarStyle"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="0.33"
-	        android:text="@string/my_stories" />
-	
-	    <Button
-	        android:id="@+id/button1"
-	        style="?android:attr/buttonBarStyle"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="0.33"
-	        android:text="@string/saved_stories" />
-	
-	    <Button
-	        android:id="@+id/button3"
-	        style="?android:attr/buttonBarStyle"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="0.34"
-	        android:text="@string/new_story" />
-    </LinearLayout>
+        <Button
+            android:id="@+id/button1"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/view_in_sky" />
+
+        <Button
+            android:id="@+id/button2"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/read_story" />
+    </LinearLayout> -->
 
 </RelativeLayout>

@@ -7,10 +7,4 @@ public class IntPair {
 		first = afirst;
 		second = asecond;
 	}
-	
-	public void Set(int x, int y)
-	{
-		first = x; 
-		second = y;
-	}
 }

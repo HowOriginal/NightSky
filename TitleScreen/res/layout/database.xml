@@ -6,7 +6,6 @@
 
     <Button
         android:id="@+id/register"
-        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/login"
@@ -17,14 +16,12 @@
 
     <Button
         android:id="@+id/login"
-        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/register"
         android:layout_alignLeft="@+id/password"
         android:layout_alignRight="@+id/password"
         android:text="@string/login" />
-    
 
     <EditText
         android:id="@+id/password"
@@ -33,21 +30,10 @@
         android:layout_above="@+id/login"
         android:layout_centerHorizontal="true"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:inputType="textPassword" >
 
-        
-    
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/TextView01"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="text">
-   	 <requestFocus />
+        <requestFocus />
     </EditText>
-    
 
     <TextView
         android:id="@+id/textView2"
@@ -57,7 +43,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
         android:gravity="center"
-        android:text="Night Sky Login"
+        android:text="@string/testlogin"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold" />
 
@@ -70,7 +56,15 @@
         android:layout_alignLeft="@+id/password"
         android:layout_marginLeft="22dp"
         android:text="@string/password" />
-	
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/TextView01"
+        android:layout_centerHorizontal="true"
+        android:ems="10" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -78,6 +72,5 @@
         android:layout_alignRight="@+id/TextView01"
         android:layout_centerVertical="true"
         android:text="@string/username" />
-    
 
 </RelativeLayout>

@@ -19,5 +19,9 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="testlogin">Test Login</string>
+    <string name="startext">Make Star</string>
+    <string name="linetext">Make Connection</string>
+    <string name="delete_story">Delete Story</string>
+    <string name="logout">Log Out</string>
 
 </resources>

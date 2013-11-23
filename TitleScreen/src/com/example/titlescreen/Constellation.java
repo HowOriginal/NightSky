@@ -24,6 +24,7 @@ public class Constellation {
 	public ArrayList<IntPair> getLines() {return lines;}
 	public IntPair getLine(int index) {return lines.get(index);}
 	public int numLines() {return lines.size();}
+	public ArrayList<FloatPair> getStars() {return stars;}
 	
 	//Set functions
 	public void setId(String aid) {id=aid;}
