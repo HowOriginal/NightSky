@@ -1,11 +1,13 @@
 package com.example.titlescreen;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ActionBar.LayoutParams;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -17,14 +19,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,12 +85,6 @@ public class ConstructorActivity extends Activity {
 	    setContentView(rl);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 	
 	class Create extends AsyncTask<String, String, String> {
 		
@@ -102,7 +94,7 @@ public class ConstructorActivity extends Activity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			pDialog = new ProgressDialog(MainActivity.this);
+			pDialog = new ProgressDialog(ConstructorActivity.this);
 			pDialog.setMessage("Adding Constellation...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
