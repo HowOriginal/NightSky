@@ -83,6 +83,20 @@ public class ConstructorActivity extends Activity {
 	        }
 	    });
 	    
+	    Button clearbutton = new Button(this);
+	    bp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	    bp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+	    bp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+	    clearbutton.setLayoutParams(bp);
+	    clearbutton.setText("Clear");
+	    clearbutton.setOnClickListener(new View.OnClickListener() {
+	        @Override
+	        public void onClick(View v) {
+	        	cv.setConstellation(new Constellation());
+	        }
+	    });
+	    
+	    rl.addView(clearbutton);
 	    rl.addView(savebutton);
 	    
 	    setContentView(rl);
