@@ -33,7 +33,7 @@ public class SkyTable
 	
 	public IntPair FindFirstEmptySlot()
 	{
-		boolean found = false;
+		/*boolean found = false;
 		int loci = 0;
 		int locj = 0;
 		Random generator = new Random();
@@ -50,8 +50,8 @@ public class SkyTable
 				found = true;
 				return rotationCoordinates;
 			}
-		}
-		/*
+		}*/
+		
 		for(int i = 0; i < 9; i++)
 		{
 			for(int j = 0; j < 9; j++)
@@ -64,7 +64,7 @@ public class SkyTable
 				}
 			}
 		}
-		*/
+		
 		IntPair rotationCoordinates = new IntPair(0,0);
 		return rotationCoordinates;
 	}
