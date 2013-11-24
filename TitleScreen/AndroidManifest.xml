@@ -25,9 +25,9 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.titlescreen.AddStory" />
-        <activity android:name="com.example.titlescreen.ConstBuilder" />
         <activity android:name="com.example.titlescreen.Constellation" />
         <activity android:name="com.example.titlescreen.ConstellationRead" />
+        <activity android:name="com.example.titlescreen.ConstructorActivity" />
         <activity android:name="com.example.titlescreen.ConstructorView" />
         <activity android:name="com.example.titlescreen.Database" />
         <activity android:name="com.example.titlescreen.DisplayStory" />

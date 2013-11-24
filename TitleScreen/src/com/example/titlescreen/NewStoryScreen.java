@@ -66,7 +66,7 @@ public class NewStoryScreen extends Activity {
 //            	 temp.execute();
             	 new Create().execute();
             	 //if not temp failure...
-                 Intent activityChangeIntent = new Intent(NewStoryScreen.this, ConstBuilder.class);
+                 Intent activityChangeIntent = new Intent(NewStoryScreen.this, ConstructorActivity.class);
                  activityChangeIntent.putExtra("text", user);
                  NewStoryScreen.this.startActivity(activityChangeIntent);
              }
