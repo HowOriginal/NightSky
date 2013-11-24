@@ -82,10 +82,11 @@ public class Register extends Activity implements OnClickListener {
 	
 			    if(!temp.failure)
 			    {
-					Intent j = new Intent(this, LibraryActivity.class);
-					String a = user.getText().toString();
-					j.putExtra("un", a);
-					pass.setText("");
+					Intent j = new Intent(this, LaunchScreen.class);
+//					String a = user.getText().toString();
+//					j.putExtra("un", a);
+//					pass.setText("");
+					AppVariables.setUser(user.getText().toString());
 					startActivity(j);
 			    }
 
