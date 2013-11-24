@@ -16,15 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -75,6 +70,14 @@ public class ConstructorActivity extends Activity {
 	        	temp.s = con.stars;
 	        	temp.l = con.lines;
 	        	
+	        	if (temp.s.size() < 1) {
+	        		Context context = getApplicationContext();
+					int duration = Toast.LENGTH_LONG;
+					Toast toas = Toast.makeText(context, "Need at least 1 star to save.", duration);
+					toas.show();
+	        		return;
+	        	}
+	        	
 	        	temp.execute();
 	            
 	        }
@@ -105,7 +108,7 @@ public class ConstructorActivity extends Activity {
 		protected String doInBackground(String... args) {
 			// TODO Auto-generated method stub
 			// Check for success tag
-			int success;
+			// int success;
 			
 			try {
 				String[] starfieldnames = {"x1","x2","x3","x4","x5","x6","x7","y1","y2","y3","y4","y5","y6","y7"};
@@ -118,8 +121,8 @@ public class ConstructorActivity extends Activity {
 						params.add(new BasicNameValuePair(starfieldnames[i+7], Float.toString(s.get(i).second)));
 					}
 					else {
-						params.add(new BasicNameValuePair(starfieldnames[i], "0"));
-						params.add(new BasicNameValuePair(starfieldnames[i+7], "0"));
+						params.add(new BasicNameValuePair(starfieldnames[i], Float.toString(s.get(0).first)));
+						params.add(new BasicNameValuePair(starfieldnames[i+7], Float.toString(s.get(0).second)));
 					}
 					if (l.size()>i) {
 						params.add(new BasicNameValuePair(linefieldnames[2*i], Integer.toString(l.get(i).first)));
