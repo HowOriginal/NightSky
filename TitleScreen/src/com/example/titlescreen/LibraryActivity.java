@@ -37,9 +37,7 @@ public class LibraryActivity extends Activity {
  private String jsonResult;
  private String url = "http://ezhang.myrpi.org/readstory.php";
  private ListView listView;
- String user; 
- Integer id;
- //user = getIntent().getExtras().getString("un");
+
  
  
  @Override
@@ -49,12 +47,6 @@ public class LibraryActivity extends Activity {
   ActionBar actionBar = getActionBar(); //getSupportActionBar()
   actionBar.setDisplayHomeAsUpEnabled(true);
   
-  	//Intent intent = getIntent();
-  	//intent.getExtras().getString("text");
- 	user = getIntent().getStringExtra("text");
-  
-//	TextView t = (TextView)findViewById(R.id.textname);
-//	t.setText(getIntent().getExtras().getString("un"));
   
 
   listView = (ListView) findViewById(R.id.listView1);
@@ -66,8 +58,8 @@ public class LibraryActivity extends Activity {
              // Perform action on click   
 
              Intent activityChangeIntent = new Intent(LibraryActivity.this, FirstActivity.class);
-			 activityChangeIntent.putExtra("text", user);
-             activityChangeIntent.putExtra("id", id);
+			 //activityChangeIntent.putExtra("text", user);
+             //activityChangeIntent.putExtra("id", id);
              LibraryActivity.this.startActivity(activityChangeIntent);
          }
      });
@@ -78,8 +70,8 @@ public class LibraryActivity extends Activity {
              // Perform action on click   
 
              Intent activityChangeIntent = new Intent(LibraryActivity.this, SecondActivity.class);
-             activityChangeIntent.putExtra("text", user);
-             activityChangeIntent.putExtra("id", id);
+             //activityChangeIntent.putExtra("text", user);
+             //activityChangeIntent.putExtra("id", id);
              LibraryActivity.this.startActivity(activityChangeIntent);
          }
      });
@@ -90,7 +82,7 @@ public class LibraryActivity extends Activity {
              // Perform action on click   
 
              Intent activityChangeIntent = new Intent(LibraryActivity.this, NewStoryScreen.class);
-             activityChangeIntent.putExtra("text", user);
+             //activityChangeIntent.putExtra("text", user);
              LibraryActivity.this.startActivity(activityChangeIntent);
          }
      });
@@ -101,22 +93,29 @@ public class LibraryActivity extends Activity {
      case android.R.id.home:
          this.finish();
          return true;
+   	case R.id.login:  startActivity(new Intent(LibraryActivity.this, Login.class));;
+   		return true;
+   	case R.id.register:  startActivity(new Intent(LibraryActivity.this, Register.class));;
+   		return true; 
+   	case R.id.logout: 
+		AppVariables.setUser(null);
+		startActivity(new Intent(LibraryActivity.this, LaunchScreen.class));;
+		return true;
      }
      return super.onOptionsItemSelected(item);
  }
- 
- @Override
- public boolean onCreateOptionsMenu(Menu menu) {
 
-	 if (user != "") {
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+
+	 if (AppVariables.getUser() != null) {
 		  getMenuInflater().inflate(R.menu.launch_screen, menu);
 	 }
 	 else {
 		 getMenuInflater().inflate(R.menu.login_menu, menu);
 	 }
-	// getMenuInflater().inflate(R.menu.launch_screen, menu);
 	 return true;
- }
+}
  
  // Async Task to access the web
  private class JsonReadTask extends AsyncTask<String, Void, String> {
@@ -181,7 +180,7 @@ public class LibraryActivity extends Activity {
     JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
     String name = jsonChildNode.optString("username");
     String title = jsonChildNode.optString("title");
-    id = jsonChildNode.optInt("id");
+    //Integer id = jsonChildNode.optInt("id");
     //String story = jsonChildNode.optString("story");
     String outPut = name + "// Title: " + title;
     employeeList.add(createEmployee("employees", outPut));
