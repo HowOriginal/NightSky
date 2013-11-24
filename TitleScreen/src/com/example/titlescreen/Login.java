@@ -96,12 +96,11 @@ public class Login extends Activity implements OnClickListener{
 			}
 			    if(!temp.failure)
 			    {
-					Intent j = new Intent(this, LaunchScreen.class);
-					String a = user.getText().toString();
-					j.putExtra("text", a);
-					//j.putExtra("un", a);
-					pass.setText("");
-					startActivity(j);
+			    	AppVariables.setUser(user.getText().toString());
+	                Intent activityChangeIntent = new Intent(Login.this, LaunchScreen.class);
+	                Login.this.startActivity(activityChangeIntent);
+//					Intent j = new Intent(this, LaunchScreen.class);
+//					startActivity(j);
 			    }
 			break;
 		case R.id.register:
