@@ -39,16 +39,12 @@ public class SecondActivity extends Activity {
 	 private String jsonResult;
 	 private String url = "http://ezhang.myrpi.org/readstory.php";
 	 private ListView listView;
-	 String user;
-	 String id;
-	 
+
 	 @Override
 	 protected void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  setContentView(R.layout.second_activity);
 	  listView = (ListView) findViewById(R.id.listView1);
-	  
-	  user = getIntent().getStringExtra("text");
 	 
 	  
 	  listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -59,6 +55,7 @@ public class SecondActivity extends Activity {
 	                                            long id, boolean checked) {
 	          // Here you can do something when items are selected/de-selected,
 	          // such as update the title in the CAB
+	    	  //AppVariables.setStoryId((String) (listView.getItemAtPosition(position)));
 	      }
 
 	      @Override
@@ -73,13 +70,9 @@ public class SecondActivity extends Activity {
 	              case R.id.readstory:
 	                  Intent activityChangeIntent2 = new Intent(SecondActivity.this, GetStory.class);
 	                  SecondActivity.this.startActivity(activityChangeIntent2);
-	                  activityChangeIntent2.putExtra("id", id);
+	                  //activityChangeIntent2.putExtra("id", id);
 	                  mode.finish(); // Action picked, so close the CAB
-	                  return true;
-			      case R.id.login:  startActivity(new Intent(SecondActivity.this, Login.class));;
-                  	  return true;
-			      case R.id.register:  startActivity(new Intent(SecondActivity.this, Register.class));;
-					  return true;   
+	                  return true;  
 	              default:
 	                  return false;
 	          }
@@ -113,35 +106,36 @@ public class SecondActivity extends Activity {
 	  actionBar.setDisplayHomeAsUpEnabled(true);
 	  
 	 }
+	 
 	 @Override
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	        switch (item.getItemId()) {
 	        case android.R.id.home:
 	            this.finish();
 	            return true;
+	      	case R.id.login:  startActivity(new Intent(SecondActivity.this, Login.class));;
+	      		return true;
+	      	case R.id.register:  startActivity(new Intent(SecondActivity.this, Register.class));;
+	      		return true; 
+	      	case R.id.logout: 
+				AppVariables.setUser(null);
+				startActivity(new Intent(SecondActivity.this, LaunchScreen.class));;
+				return true;
 	        }
 	        return super.onOptionsItemSelected(item);
 	    }
-	 
-//	 @Override
-//	 public boolean onCreateOptionsMenu(Menu menu) {
-//	  // Inflate the menu; this adds items to the action bar if it is present.
-//	  getMenuInflater().inflate(R.menu.login_menu, menu);
-//	  return true;
-//	 }
+
 	 @Override
 	 public boolean onCreateOptionsMenu(Menu menu) {
 
-		 if (user != "") {
+		 if (AppVariables.getUser() != null) {
 			  getMenuInflater().inflate(R.menu.launch_screen, menu);
 		 }
 		 else {
 			 getMenuInflater().inflate(R.menu.login_menu, menu);
 		 }
-		// getMenuInflater().inflate(R.menu.launch_screen, menu);
 		 return true;
 	 }
-	 
 
 	 
 	 // Async Task to access the web
@@ -206,7 +200,7 @@ public class SecondActivity extends Activity {
 	   for (int i = 0; i < jsonMainNode.length(); i++) {
 	    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
 	    String name = jsonChildNode.optString("username");
-	    if(name != user){
+	    if(!name.equals(AppVariables.getUser())){
 		    String title = jsonChildNode.optString("title");
 		    String outPut = name + "// Title: " + title;
 	    	employeeList.add(createEmployee("employees", outPut));
