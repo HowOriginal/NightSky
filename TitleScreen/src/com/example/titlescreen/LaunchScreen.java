@@ -11,13 +11,11 @@ import android.widget.Button;
 
 
 public class LaunchScreen extends Activity {
-    String user = "";
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_screen);
-    
 	
 		 final Button library = (Button) findViewById(R.id.button2);
 	     library.setOnClickListener(new View.OnClickListener() {
@@ -25,7 +23,7 @@ public class LaunchScreen extends Activity {
 	             // Perform action on click   
 	
 	             Intent activityChangeIntent = new Intent(LaunchScreen.this, LibraryActivity.class);
-	             activityChangeIntent.putExtra("text", user);
+	             //activityChangeIntent.putExtra("text", user);
 	             LaunchScreen.this.startActivity(activityChangeIntent);
 	         }
 	     });
@@ -36,7 +34,7 @@ public class LaunchScreen extends Activity {
 	             // Perform action on click   
 	
 	             Intent activityChangeIntent = new Intent(LaunchScreen.this, SkyView.class);
-	             activityChangeIntent.putExtra("text", user);
+	             //activityChangeIntent.putExtra("text", user);
 	             LaunchScreen.this.startActivity(activityChangeIntent);
 	         }
 	     });
@@ -45,27 +43,30 @@ public class LaunchScreen extends Activity {
 
 	
 	 @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	      	case R.id.login:  startActivity(new Intent(LaunchScreen.this, Login.class));;
+	      		return true;
+	      	case R.id.register:  startActivity(new Intent(LaunchScreen.this, Register.class));;
+	      		return true; 
+	      	case R.id.logout: 
+	      		AppVariables.setUser(null);
+	      		startActivity(new Intent(LaunchScreen.this, LaunchScreen.class));;
+	      		return true;
+	        }
+	        return super.onOptionsItemSelected(item);
+	    }
+	 
+	 @Override
 	 public boolean onCreateOptionsMenu(Menu menu) {
 
-		 if (user != "") {
+		 if (AppVariables.getUser() != null) {
 			  getMenuInflater().inflate(R.menu.launch_screen, menu);
 		 }
 		 else {
 			 getMenuInflater().inflate(R.menu.login_menu, menu);
 		 }
-		// getMenuInflater().inflate(R.menu.launch_screen, menu);
 		 return true;
 	 }
-	 
-	//setGroupVisible() to control login & register buttons
-	public boolean onOptionsItemSelected(MenuItem item) {
-		  switch (item.getItemId()) {
-		      case R.id.login:  startActivity(new Intent(this, Login.class));;
-		                            break;
-		      case R.id.register:  startActivity(new Intent(this, Register.class));;
-              						break;   
-		  }
-		 return true;
-	}
 
 }

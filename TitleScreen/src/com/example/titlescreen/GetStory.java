@@ -29,9 +29,12 @@ import org.json.JSONObject;
  
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.SimpleAdapter;
@@ -41,16 +44,16 @@ public class GetStory extends Activity {
  String jsonResult;
  String url = "http://ezhang.myrpi.org/getstory.php";
  ListView listView;
- String user;
- String id;
  
  @Override
  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
-  setContentView(R.layout.readstory);
-  
+  setContentView(R.layout.getstory);
   
   accessWebService();
+  
+  ActionBar actionBar = getActionBar(); //getSupportActionBar()
+  actionBar.setDisplayHomeAsUpEnabled(true);
   
   JsonReadTask temp = new JsonReadTask();
   temp.execute();
@@ -69,15 +72,32 @@ public class GetStory extends Activity {
  }
  
  @Override
+ public boolean onOptionsItemSelected(MenuItem item) {
+     switch (item.getItemId()) {
+     case android.R.id.home:
+         this.finish();
+         return true;
+   	case R.id.login:  startActivity(new Intent(GetStory.this, Login.class));;
+   		return true;
+   	case R.id.register:  startActivity(new Intent(GetStory.this, Register.class));;
+   		return true; 
+   	case R.id.logout: 
+   		AppVariables.setUser(null);
+   		startActivity(new Intent(GetStory.this, LaunchScreen.class));;
+   		return true;
+     }
+     return super.onOptionsItemSelected(item);
+ }
+ 
+ @Override
  public boolean onCreateOptionsMenu(Menu menu) {
 
-	 if (user != "") {
+	 if (AppVariables.getUser() != null) {
 		  getMenuInflater().inflate(R.menu.launch_screen, menu);
 	 }
 	 else {
 		 getMenuInflater().inflate(R.menu.login_menu, menu);
 	 }
-	// getMenuInflater().inflate(R.menu.launch_screen, menu);
 	 return true;
  }
  
@@ -91,7 +111,7 @@ public class GetStory extends Activity {
    try {
    List<NameValuePair> para = new ArrayList<NameValuePair>();
    //parameter here just replace with the id of the story
-   para.add(new BasicNameValuePair("id", "1"));
+   para.add(new BasicNameValuePair("id", AppVariables.getStoryId()));
    httppost.setEntity(new UrlEncodedFormEntity(para));
  
     HttpResponse response = httpclient.execute(httppost);
