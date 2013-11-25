@@ -10,21 +10,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".NewStoryScreen" >
 
-	<EditText
-	    android:id="@+id/story_title"
-	    android:layout_width="289dp"
-	    android:layout_height="wrap_content"
-	    android:hint="@string/story_title"
-	    android:inputType="textCapWords|textAutoCorrect" />
-    
+    <EditText
+        android:id="@+id/story_title"
+        android:layout_width="289dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/story_title"
+        android:inputType="textCapWords|textAutoCorrect" />
+
     <EditText
         android:id="@+id/new_story"
-        android:layout_width="289dp"
-        android:layout_height="0dip"
-        android:layout_weight="0.90"
+        android:lines="20"
+        android:minLines="4"
+        android:maxLines="20"
+        android:gravity="top|left"
+        android:layout_width="287dp"
+        android:layout_height="280dp"
+        android:layout_weight="0.66"
         android:hint="@string/new_story"
-        android:inputType="text|textAutoCorrect" />
-    
+        android:inputType="textMultiLine" />
+
     <Button
         android:id="@+id/save_story"
         style="?android:attr/buttonBarStyle"
