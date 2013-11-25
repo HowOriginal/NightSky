@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true" >
     </ListView>
 
-    <LinearLayout
+   <LinearLayout
         android:id="@+id/linearLayout1"
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
@@ -32,13 +32,6 @@
 	        android:layout_weight="0.33"
 	        android:text="@string/my_stories" />
 	
-	    <Button
-	        android:id="@+id/button1"
-	        style="?android:attr/buttonBarStyle"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="0.33"
-	        android:text="@string/saved_stories" />
 	
 	    <Button
 	        android:id="@+id/button3"
