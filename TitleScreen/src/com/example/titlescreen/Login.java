@@ -94,9 +94,8 @@ public class Login extends Activity implements OnClickListener {
 			}
 			if (!temp.failure) {
 				AppVariables.setUser(user.getText().toString());
-				Variables uclass = new Variables();
-				uclass.user = user.getText().toString();
-
+				//Variables uclass = new Variables();
+				//AppVariables.setUser(user.getText().toString());
 				Intent activityChangeIntent = new Intent(Login.this,
 						LaunchScreen.class);
 				Login.this.startActivity(activityChangeIntent);

@@ -22,9 +22,9 @@ public class LaunchScreen extends Activity {
 		library.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				Variables uclass = new Variables();
+				//Variables uclass = new Variables();
 				// Perform action on click
-				if (uclass.user != null) {
+				if (AppVariables.getUser() != null) {
 					Intent activityChangeIntent = new Intent(LaunchScreen.this,
 							LibraryActivity.class);
 					// activityChangeIntent.putExtra("text", user);
@@ -40,9 +40,9 @@ public class LaunchScreen extends Activity {
 		skyview.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// Perform action on click
-				Variables uclass = new Variables();
+				//Variables uclass = new Variables();
 				// Perform action on click
-				if (uclass.user != null) {
+				if (AppVariables.getUser() != null) {
 					Intent activityChangeIntent = new Intent(LaunchScreen.this,
 							SkyView.class);
 					// activityChangeIntent.putExtra("text", user);
