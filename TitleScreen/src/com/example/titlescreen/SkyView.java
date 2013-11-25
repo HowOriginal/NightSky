@@ -337,7 +337,10 @@ public class SkyView extends Activity {
 					selectionText.setText("Selection: (sky)");
 					// textView.setText("null");
 				} else {
+					cam.moveCamera(Camera.CAMERA_MOVEOUT, ZoomLevel);
+					cam.lookAt(new SimpleVector(0, 0, 400));
 					cam.lookAt(((Object3D) res[1]).getTransformedCenter());
+					cam.moveCamera(Camera.CAMERA_MOVEIN,  ZoomLevel);
 					ConstellationID = ((Object3D) res[1]).getName();
 					selectionText.setText("Selection: " + ConstellationID);
 					// textView.setText(ConstellationID);
