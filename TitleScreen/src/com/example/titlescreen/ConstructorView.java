@@ -16,7 +16,10 @@ public class ConstructorView extends View {
     private int startX,startY,stopX,stopY,screenwidth,screenheight;
     
     public Constellation getConstellation() {return con;}
-    public void setConstellation(Constellation acon) {con = acon;}
+    public void setConstellation(Constellation acon) {
+    	con = acon;
+    	invalidate();
+    }
 
     @SuppressLint("NewApi")
 	public ConstructorView(Context context) {
