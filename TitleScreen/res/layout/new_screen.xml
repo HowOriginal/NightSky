@@ -23,8 +23,8 @@
         android:minLines="4"
         android:maxLines="20"
         android:gravity="top|left"
-        android:layout_width="287dp"
-        android:layout_height="280dp"
+        android:layout_width="289dp"
+        android:layout_height="150dp"
         android:layout_weight="0.66"
         android:hint="@string/new_story"
         android:inputType="textMultiLine" />
