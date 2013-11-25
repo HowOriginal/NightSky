@@ -421,8 +421,8 @@ public class SkyView extends Activity {
 					RotValues.second);
 
 			// Build the Constellation clickable
-			SimpleVector Point = new SimpleVector(100, 100, 450);
-			Object3D Const = Primitives.getSphere(50);
+			SimpleVector Point = new SimpleVector(50, 50, 450);
+			Object3D Const = Primitives.getSphere(40);
 			Const.calcTextureWrapSpherical();
 			Const.setCollisionMode(Object3D.COLLISION_CHECK_OTHERS);
 			Const.setTexture("stars");
@@ -440,9 +440,9 @@ public class SkyView extends Activity {
 			// Builds the stars
 			for (int i = 0; i < StarList.size(); i++) {
 				// Draw the star at the origin+location
-				float x = Origin.x + StarList.get(i).first * 200;
-				float y = Origin.y + StarList.get(i).second * 200;
-				Point = new SimpleVector(x, y, 400);
+				float x = Origin.x + StarList.get(i).first * 100;
+				float y = Origin.y + StarList.get(i).second * 100;
+				Point = new SimpleVector(x, y, 450);
 
 				// Build and place star
 				Object3D Star = Primitives.getSphere(10);
@@ -532,7 +532,7 @@ public class SkyView extends Activity {
 				ConstellationDBList = cr.sky;
 			}
 			
-			for (int i = 0; i < ConstellationDBList.size() && i<2; i++) {
+			for (int i = 0; i < ConstellationDBList.size() && i<5; i++) {
 				DrawConstellation(ConstellationDBList.get(i), Sky);
 			}
 		}
@@ -639,20 +639,33 @@ public class SkyView extends Activity {
 		}
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			this.finish();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+	 @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	        case android.R.id.home:
+	            this.finish();
+	            return true;
+	      	case R.id.login:  startActivity(new Intent(SkyView.this, Login.class));;
+	      		return true;
+	      	case R.id.register:  startActivity(new Intent(SkyView.this, Register.class));;
+	      		return true; 
+	      	case R.id.logout: 
+				AppVariables.setUser(null);
+				startActivity(new Intent(SkyView.this, LaunchScreen.class));;
+				return true;
+	        }
+	        return super.onOptionsItemSelected(item);
+	    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login_menu, menu);
-		return true;
-	}
+	 @Override
+	 public boolean onCreateOptionsMenu(Menu menu) {
+
+		 if (AppVariables.getUser() != null) {
+			  getMenuInflater().inflate(R.menu.launch_screen, menu);
+		 }
+		 else {
+			 getMenuInflater().inflate(R.menu.login_menu, menu);
+		 }
+		 return true;
+	 }
 }
