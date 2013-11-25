@@ -421,11 +421,11 @@ public class SkyView extends Activity {
 					RotValues.second);
 
 			// Build the Constellation clickable
-			SimpleVector Point = new SimpleVector(0, 0, 450);
-			Object3D Const = Primitives.getSphere(100);
+			SimpleVector Point = new SimpleVector(100, 100, 450);
+			Object3D Const = Primitives.getSphere(50);
 			Const.calcTextureWrapSpherical();
 			Const.setCollisionMode(Object3D.COLLISION_CHECK_OTHERS);
-			Const.setTexture("SkyTexture");
+			Const.setTexture("stars");
 			Const.setCulling(false);
 			Const.setName(Con.getId());
 			Const.strip();
@@ -442,7 +442,7 @@ public class SkyView extends Activity {
 				// Draw the star at the origin+location
 				float x = Origin.x + StarList.get(i).first * 200;
 				float y = Origin.y + StarList.get(i).second * 200;
-				Point = new SimpleVector(x, y, 450);
+				Point = new SimpleVector(x, y, 400);
 
 				// Build and place star
 				Object3D Star = Primitives.getSphere(10);
@@ -532,7 +532,7 @@ public class SkyView extends Activity {
 				ConstellationDBList = cr.sky;
 			}
 			
-			for (int i = 0; i < ConstellationDBList.size() && i<5; i++) {
+			for (int i = 0; i < ConstellationDBList.size() && i<2; i++) {
 				DrawConstellation(ConstellationDBList.get(i), Sky);
 			}
 		}
