@@ -87,7 +87,7 @@ public class LibraryActivity extends Activity {
 			// Here you can do something when items are selected/de-selected, such as update the title in the CAB
 
 	    	  if (checked) {
-	    		  AppVariables.setStoryId(Integer.toString(position));
+	    		  AppVariables.setStoryId(Integer.toString(position+1));
 	    		  //Toast.makeText(FirstActivity.this, "Selected id: " + AppVariables.getStoryId(),
                //        Toast.LENGTH_SHORT).show();
 	    	  }
