@@ -147,20 +147,20 @@ public class ConstellationRead /*extends Activity*/ {
 				JSONObject jsonChildNode = jsonMainNode.getJSONObject(i); 
 
 				int id = jsonChildNode.optInt("id");
-				float x1 = jsonChildNode.optInt("x1");
-				float x2 = jsonChildNode.optInt("x2");
-				float x3 = jsonChildNode.optInt("x3");
-				float x4 = jsonChildNode.optInt("x4");
-				float x5 = jsonChildNode.optInt("x5");
-				float x6 = jsonChildNode.optInt("x6");
-				float x7 = jsonChildNode.optInt("x7");
-				float y1 = jsonChildNode.optInt("y1");
-				float y2 = jsonChildNode.optInt("y2");
-				float y3 = jsonChildNode.optInt("y3");
-				float y4 = jsonChildNode.optInt("y4");
-				float y5 = jsonChildNode.optInt("y5");
-				float y6 = jsonChildNode.optInt("y6");
-				float y7 = jsonChildNode.optInt("y7");
+				float x1 = (float) jsonChildNode.optDouble("x1");
+				float x2 = (float) jsonChildNode.optDouble("x2");
+				float x3 = (float) jsonChildNode.optDouble("x3");
+				float x4 = (float) jsonChildNode.optDouble("x4");
+				float x5 = (float) jsonChildNode.optDouble("x5");
+				float x6 = (float) jsonChildNode.optDouble("x6");
+				float x7 = (float) jsonChildNode.optDouble("x7");
+				float y1 = (float) jsonChildNode.optDouble("y1");
+				float y2 = (float) jsonChildNode.optDouble("y2");
+				float y3 = (float) jsonChildNode.optDouble("y3");
+				float y4 = (float) jsonChildNode.optDouble("y4");
+				float y5 = (float) jsonChildNode.optDouble("y5");
+				float y6 = (float) jsonChildNode.optDouble("y6");
+				float y7 = (float) jsonChildNode.optDouble("y7");
 
 				int p1a = jsonChildNode.optInt("p1a");
 				int p1b = jsonChildNode.optInt("p1b");
@@ -171,7 +171,7 @@ public class ConstellationRead /*extends Activity*/ {
 				int p4a = jsonChildNode.optInt("p4a");
 				int p4b = jsonChildNode.optInt("p4b");
 				int p5a = jsonChildNode.optInt("p5a");
-				int p5b = jsonChildNode.optInt("p5a");
+				int p5b = jsonChildNode.optInt("p5b");
 				int p6a = jsonChildNode.optInt("p6a");
 				int p6b = jsonChildNode.optInt("p6b");
 				int p7a = jsonChildNode.optInt("p7a");

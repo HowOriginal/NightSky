@@ -434,14 +434,14 @@ public class SkyView extends Activity {
 			Point.rotateX((float) yAxisRotation * 3.1465f / 180);
 			Point.rotateY((float) xAxisRotation * 3.1465f / 180);
 			Const.setOrigin(Point);
-			Const.setTransparency(0);
+			//Const.setTransparency(0);
 			Const.setLighting(Object3D.LIGHTING_NO_LIGHTS);
 
 			// Builds the stars
 			for (int i = 0; i < StarList.size(); i++) {
 				// Draw the star at the origin+location
-				float x = Origin.x + StarList.get(i).first * 50;
-				float y = Origin.y + StarList.get(i).second * 50;
+				float x = Origin.x + StarList.get(i).first * 200;
+				float y = Origin.y + StarList.get(i).second * 200;
 				Point = new SimpleVector(x, y, 450);
 
 				// Build and place star
@@ -479,7 +479,8 @@ public class SkyView extends Activity {
 			// For each constellation, call DrawConstellation
 
 			// Testcase code
-			/*Constellation TestCase = new Constellation();
+			/*
+			Constellation TestCase = new Constellation();
 			IntPair tempI = new IntPair(0, 0);
 			FloatPair tempF = new FloatPair(0f, 0f);
 			TestCase.setId("Test constellation");
@@ -511,12 +512,13 @@ public class SkyView extends Activity {
 			TestCase.addLine(tempI);
 			tempI = new IntPair(3, 5);
 			TestCase.addLine(tempI);
-			tempF = null;
-			tempI = null;
+			//tempF = null;
+			//tempI = null;
 			for (int i = 0; i < 5; i++) {// 15 is cap
-											// ConstellationDBList.add(TestCase);
+		 		ConstellationDBList.add(TestCase);
 			}*/
 
+			
 			if (ConstellationDBList.size()<1) {
 				cr = new ConstellationRead();
 				while (cr.waitForDB()){
