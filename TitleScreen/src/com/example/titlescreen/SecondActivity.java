@@ -209,7 +209,7 @@ public class SecondActivity extends Activity {
 				String name = jsonChildNode.optString("username");
 				if (!name.equals(AppVariables.getUser())) {
 					String title = jsonChildNode.optString("title");
-					String outPut = "Username: " + name + " || Title: " + title;
+					String outPut = title + " by: " + name;
 					employeeList.add(createEmployee("employees", outPut));
 				}
 			}
