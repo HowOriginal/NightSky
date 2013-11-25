@@ -52,7 +52,7 @@ public class FirstActivity extends Activity {
 	  
 	  //Variables.user = getIntent().getStringExtra("text");
 	  //id = getIntent().getStringExtra("id");
-	  
+      
 	  listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 	  listView.setMultiChoiceModeListener(new MultiChoiceModeListener() {
 
@@ -61,11 +61,17 @@ public class FirstActivity extends Activity {
 	                                            long id, boolean checked) {
 	          // Here you can do something when items are selected/de-selected,
 	          // such as update the title in the CAB
-	    	  //AppVariables.setStoryId((String) (listView.getItemAtPosition(position)));
+	    	  if (checked) {
+	    		  //AppVariables.setStoryId((String) (listView.getItemAtPosition(position)));
+	    		  AppVariables.setStoryId(Integer.toString(position));
+	    		  //Toast.makeText(FirstActivity.this, "Selected id: " + AppVariables.getStoryId(),
+                  //        Toast.LENGTH_SHORT).show();
+	    	  }
 	      }
 
 	      @Override
 	      public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+	    	  
 	          // Respond to clicks on the actions in the CAB
 	          switch (item.getItemId()) {
 	              case R.id.editstory:
@@ -88,7 +94,7 @@ public class FirstActivity extends Activity {
 	      public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 	          // Inflate the menu for the CAB
 	          MenuInflater inflater = mode.getMenuInflater();
-	          inflater.inflate(R.menu.saved_stories, menu);
+	          inflater.inflate(R.menu.my_stories, menu);
 	          return true;
 	      }
 
