@@ -244,7 +244,9 @@ public class SkyView extends Activity {
 		RS.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				AppVariables.setStoryId(ConstellationID);
+				Intent activityChangeIntent = new Intent(SkyView.this, GetStory.class);
+				SkyView.this.startActivity(activityChangeIntent);
 			}
 		});
 		rl.addView(RS);
@@ -261,10 +263,7 @@ public class SkyView extends Activity {
 		LB.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent activityChangeIntent = new Intent(SkyView.this,
-						LibraryActivity.class);
-
-				// currentContext.startActivity(activityChangeIntent);
+				Intent activityChangeIntent = new Intent(SkyView.this, LibraryActivity.class);
 
 				SkyView.this.startActivity(activityChangeIntent);
 			}
@@ -327,7 +326,7 @@ public class SkyView extends Activity {
 				ypos = me.getY(0);
 
 				SimpleVector dir = Interact2D.reproject2D3DWS(cam, fb,
-						(int) Math.round(xpos), (int) Math.round(ypos) - 60)
+						(int) Math.round(xpos), (int) Math.round(ypos) - 180)
 						.normalize();
 				Object[] res = world.calcMinDistanceAndObject3D(
 						cam.getPosition(), dir, 1000 /* or whatever */);
@@ -425,7 +424,7 @@ public class SkyView extends Activity {
 			Object3D Const = Primitives.getSphere(40);
 			Const.calcTextureWrapSpherical();
 			Const.setCollisionMode(Object3D.COLLISION_CHECK_OTHERS);
-			Const.setTexture("stars");
+			Const.setTexture("SkyTexture");
 			Const.setCulling(false);
 			Const.setName(Con.getId());
 			Const.strip();
@@ -434,7 +433,7 @@ public class SkyView extends Activity {
 			Point.rotateX((float) yAxisRotation * 3.1465f / 180);
 			Point.rotateY((float) xAxisRotation * 3.1465f / 180);
 			Const.setOrigin(Point);
-			//Const.setTransparency(0);
+			Const.setTransparency(0);
 			Const.setLighting(Object3D.LIGHTING_NO_LIGHTS);
 
 			// Builds the stars
@@ -445,7 +444,7 @@ public class SkyView extends Activity {
 				Point = new SimpleVector(x, y, 450);
 
 				// Build and place star
-				Object3D Star = Primitives.getSphere(10);
+				Object3D Star = Primitives.getSphere(6);
 				Star.calcTextureWrapSpherical();
 				Star.setTexture("stars");
 				Star.setCulling(false);
